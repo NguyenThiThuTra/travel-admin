@@ -1,0 +1,22 @@
+.form-review .ant-modal-content {
+  width: 100%;
+}
+.form-review .ant-space .ant-space-item:first-child {
+  width: 100%;
+}
+.form-review__title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #3578e5;
+}
+.ui-form-control {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.ui-form-control__label {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}

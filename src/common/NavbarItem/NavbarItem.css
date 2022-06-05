@@ -1,0 +1,27 @@
+.navbar_item.active a:after {
+  width: 100%;
+}
+.navbar_item {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.navbar_item a {
+  position: relative;
+  padding: 0.5rem 0;
+  transition: all 0.24s;
+}
+.navbar_item a:after {
+  transition: all 0.24s;
+  position: absolute;
+  content: '';
+  height: 2px;
+  width: 0%;
+  background-color: #000;
+  bottom: 0;
+  left: 0;
+}
+.navbar_item a:hover:after {
+  transition: all 0.24s;
+  width: 100%;
+}

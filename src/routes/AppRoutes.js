@@ -7,7 +7,7 @@ export default function AppRoutes() {
   return (
     <Switch>
       {appRoutes.ADMIN_ROUTES.map((route) => (
-        <PrivateRoute key={route.id} path={route.path}>
+        <PrivateRoute isAdmin key={route.id} path={route.path}>
           {route.component}
         </PrivateRoute>
       ))}

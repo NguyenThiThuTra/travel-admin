@@ -15,7 +15,7 @@ import {
 } from 'features/Order/OrderSlice';
 import moment from 'moment';
 import queryString from 'query-string';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { ActionTable } from '../../../common/Table/ActionTable';
@@ -38,11 +38,20 @@ export default function OrdersPage(props) {
   const loading = useSelector((state) => state.order.loading);
   const deleteOrder = useSelector(useDeleteOrderSelector);
 
+  const [filterStatus, setFilterStatus] = useState('');
 
   useEffect(() => {
     const getOrderHomestayById = async () => {
       const role = currentUser?.data?.roles;
       if (role) {
+        if (role === 'admin') {
+          const payload = {
+            ...querySearch,
+          };
+          filterStatus && (payload.filters = { status: filterStatus });
+          return dispatch(getAllOrder(payload));
+        }
+
         const queryAllHomestay = {
           ...querySearch,
           filters: {
@@ -65,12 +74,6 @@ export default function OrdersPage(props) {
           dispatch(getAllOrder(payload));
           return;
         }
-        if (role === 'admin') {
-          const payload = {
-            ...querySearch,
-          };
-          dispatch(getAllOrder(payload));
-        }
 
         // }
       }
@@ -78,9 +81,11 @@ export default function OrdersPage(props) {
     getOrderHomestayById();
 
     /* eslint-disable */
-  }, [location, deleteOrder, currentUser]);
+  }, [location, deleteOrder, currentUser, filterStatus]);
 
-  const onChangePagination = (pagination) => {
+  const onChangePagination = (pagination, filters) => {
+    console.log({ filters });
+    // setFilterStatus(filters?.status||[]);
     let query = {
       ...querySearch,
       page: pagination.current,
@@ -253,7 +258,11 @@ export default function OrdersPage(props) {
             value: ORDER_STATUS.canceled.en,
           },
         ],
-        onFilter: (value, record) => record.status.startsWith(value),
+        onFilter: (value, record) => {
+          setFilterStatus(value);
+          console.log({ value, record });
+          return record.status.startsWith(value);
+        },
         filterSearch: true,
         sorter: (a, b) =>
           ORDER_STATUS_VALUE[a.status] - ORDER_STATUS_VALUE[b.status],

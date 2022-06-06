@@ -81,6 +81,7 @@ export const getCurrentUser = createAsyncThunk(
       const login = detectLogin();
       if (login.isLoggedIn && login.user_id) {
         const response = await userApi.getUser(login.user_id);
+        dispatch(setLoadingApp(false));
         return response;
       }
       dispatch(setLoadingApp(false));

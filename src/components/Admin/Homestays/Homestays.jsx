@@ -138,22 +138,22 @@ export default function AdminHomestaysPage(props) {
         },
       },
 
-      {
-        title: 'Active',
-        dataIndex: 'active',
-        key: 'active',
-        width: 150,
-        render: (n, record) => {
-          return (
-            <Switch
-              style={{ opacity: 1 }}
-              defaultChecked
-              checked={record.active}
-              disabled={true}
-            />
-          );
-        },
-      },
+      // {
+      //   title: 'Active',
+      //   dataIndex: 'active',
+      //   key: 'active',
+      //   width: 150,
+      //   render: (n, record) => {
+      //     return (
+      //       <Switch
+      //         style={{ opacity: 1 }}
+      //         defaultChecked
+      //         checked={record.active}
+      //         disabled={true}
+      //       />
+      //     );
+      //   },
+      // },
       {
         title: 'Action',
         key: 'operation',
@@ -164,6 +164,7 @@ export default function AdminHomestaysPage(props) {
             id={r._id}
             dataDetail={homestays}
             funcDelete={deleteHomestay}
+            showActionDelete={false}
           />
         ),
       },

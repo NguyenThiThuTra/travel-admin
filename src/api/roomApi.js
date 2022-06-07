@@ -5,14 +5,6 @@ const roomApi = {
     const url = '/rooms';
     return axiosClient.get(url, { params });
   },
-  getAllCategory(params) {
-    const url = '/category';
-    return axiosClient.get(url, { params });
-  },
-  getAllCategoryInHomestay(params) {
-    const url = '/category/categoryInHomestay';
-    return axiosClient.get(url, { params });
-  },
   getAllTest(params) {
     const url = '/rooms/test';
     return axiosClient.get(url, { params });
@@ -36,6 +28,23 @@ const roomApi = {
   updateRoom(payload) {
     const url = `/rooms/${payload.id}`;
     return axiosClient.patch(url, payload.room);
+  },
+
+  getAllCategory(params) {
+    const url = '/category';
+    return axiosClient.get(url, { params });
+  },
+  getAllCategoryInHomestay(params) {
+    const url = '/category/categoryInHomestay';
+    return axiosClient.get(url, { params });
+  },
+  getCategory(id) {
+    const url = `/category/${id}`;
+    return axiosClient.get(url);
+  },
+  updateCategory(payload) {
+    const url = `/category/${payload.id}`;
+    return axiosClient.patch(url, payload.category);
   },
 };
 export default roomApi;

@@ -58,6 +58,22 @@ export const getRoom = createAsyncThunk(
     }
   }
 );
+
+export const getCategory = createAsyncThunk(
+  'rooms/getCategory',
+  async (payload, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoadingApp(true));
+      const response = await roomApi.getCategory(payload);
+      dispatch(setLoadingApp(false));
+      return response;
+    } catch (error) {
+      dispatch(setLoadingApp(false));
+      return rejectWithValue(error?.response.data);
+    }
+  }
+);
+
 export const fetchAllRoomsInMyHomestay = createAsyncThunk(
   'rooms/fetchAllRooms',
   async (payload, { rejectWithValue, dispatch }) => {
@@ -119,6 +135,23 @@ export const updateRoom = createAsyncThunk(
     }
   }
 );
+export const updateCategory = createAsyncThunk(
+  'rooms/updateCategory',
+  async (payload, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoadingApp(true));
+      const response = await roomApi.updateCategory(payload);
+      message.success('Cập nhật thành công');
+      dispatch(setLoadingApp(false));
+      return response;
+    } catch (error) {
+      dispatch(setLoadingApp(false));
+      message.success('Cập nhật thất bại');
+      return rejectWithValue(error?.response.data);
+    }
+  }
+);
+
 const initialState = {
   category: null,
   rooms: null,

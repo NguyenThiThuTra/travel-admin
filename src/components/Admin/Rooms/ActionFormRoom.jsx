@@ -1,4 +1,3 @@
-import { isFulfilled, unwrapResult } from '@reduxjs/toolkit';
 import {
   Button,
   DatePicker,
@@ -12,22 +11,19 @@ import {
   Typography,
   Upload,
 } from 'antd';
+import { ErrorMessage } from 'common/ErrorMessage';
+import { LabelRequired } from 'common/LabelRequired';
+import { formItemLayout, tailFormItemLayout } from 'constants/FormLayoutAnt';
 import { ROOM_TYPES } from 'constants/room';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { ErrorMessage } from '../../../common/ErrorMessage';
-import { LabelRequired } from '../../../common/LabelRequired';
-import {
-  formItemLayout,
-  tailFormItemLayout,
-} from '../../../constants/FormLayoutAnt';
-import { fetchAllHomestays } from '../../../features/Homestay/HomestaySlice';
 import {
   addRoom,
-  getRoom,
+  getCategory,
+  updateCategory,
   updateRoom,
 } from '../../../features/Rooms/RoomsSlice';
 import { objectToFormData } from '../../../helpers/ConvertObjectToFormData';
@@ -97,36 +93,37 @@ export default function ActionFormRoom() {
   useEffect(() => {
     const role = currentUser?.data?.roles;
     // console.log('role', role);
-    async function fetchHomestayByUserId() {
+    async function defaultFormUser() {
       if ((role === 'user' || role === 'admin') && action === 'add') {
-        const resultAction = await dispatch(
-          fetchAllHomestays({
-            filters: { user_id: currentUser?.data?._id },
-          })
-        );
-        const originalPromiseResult = await unwrapResult(resultAction);
         reset({
-          homestay_id: originalPromiseResult?.data?.[0]?._id,
-          user_id: currentUser?.data?._id 
+          user_id: currentUser?.data?._id,
         });
       }
     }
-    fetchHomestayByUserId();
+    defaultFormUser();
   }, [currentUser]);
+
   useEffect(() => {
     if (!id) return;
     async function fetchDataDetail() {
       try {
-        const originalPromiseResult = await dispatch(getRoom(id)).unwrap();
+        const originalPromiseResult = await dispatch(getCategory(id)).unwrap();
+        // console.log({ originalPromiseResult });
         // handle result here
         setDataDetail(originalPromiseResult?.data);
-        const homestay = originalPromiseResult?.data?.homestay_id;
-        const category = originalPromiseResult?.data?.category_id;
-        const homestay_id = homestay?._id;
-        const { name, type, quantity, price, description, images, avatar } =
-          category;
+        const {
+          name,
+          type,
+          quantity,
+          price,
+          description,
+          images,
+          avatar,
+          homestay_id,
+          user_id,
+        } = originalPromiseResult?.data;
         reset({
-          user_id:homestay?.user_id,
+          user_id,
           homestay_id,
           name,
           type,
@@ -168,9 +165,9 @@ export default function ActionFormRoom() {
           formData.append('images', file);
         });
         await dispatch(
-          updateRoom({
+          updateCategory({
             id: id,
-            room: formData,
+            category: formData,
           })
         ).unwrap();
       }
@@ -265,7 +262,7 @@ export default function ActionFormRoom() {
               required: true,
             }}
             render={({ field }) => {
-              return <Input {...field} disabled />;
+              return <Input {...field} />;
             }}
           />
           {errors?.homestay_id && <ErrorMessage />}
@@ -274,8 +271,7 @@ export default function ActionFormRoom() {
         <Form.Item
           label={<LabelRequired title="User ID" />}
           className={
-            errors?.user_id &&
-            'ant-form-item-with-help ant-form-item-has-error'
+            errors?.user_id && 'ant-form-item-with-help ant-form-item-has-error'
           }
         >
           <Controller
@@ -285,7 +281,7 @@ export default function ActionFormRoom() {
               required: true,
             }}
             render={({ field }) => {
-              return <Input {...field} disabled />;
+              return <Input {...field} />;
             }}
           />
           {errors?.homestay_id && <ErrorMessage />}

@@ -125,43 +125,43 @@ export default function RoomsPage(props) {
           return <div>{record?.category_id?.description}</div>;
         },
       },
-      {
-        title: 'Số lượng hình ảnh',
-        dataIndex: 'images',
-        key: 'images',
-        width: 100,
-        render: (n, record) => {
-          return <div>{record?.category_id?.images ?? 0}</div>;
-        },
-      },
-      {
-        title: 'Số bình luận',
-        dataIndex: 'comments_count',
-        key: 'comments_count',
-        width: 100,
-        render: (n, record) => {
-          return <div>{record?.homestay_id?.comments_count}</div>;
-        },
-      },
+      // {
+      //   title: 'Số lượng hình ảnh',
+      //   dataIndex: 'images',
+      //   key: 'images',
+      //   width: 100,
+      //   render: (n, record) => {
+      //     return <div>{record?.category_id?.images ?? 0}</div>;
+      //   },
+      // },
+      // {
+      //   title: 'Số bình luận',
+      //   dataIndex: 'comments_count',
+      //   key: 'comments_count',
+      //   width: 100,
+      //   render: (n, record) => {
+      //     return <div>{record?.homestay_id?.comments_count}</div>;
+      //   },
+      // },
 
-      {
-        title: 'Đánh giá',
-        dataIndex: 'rate',
-        key: 'rate',
-        width: 100,
-        render: (n, record) => {
-          return <div>{record?.homestay_id?.rate}</div>;
-        },
-      },
-      {
-        title: 'Lượt xem',
-        dataIndex: 'view',
-        key: 'view',
-        width: 100,
-        render: (n, record) => {
-          return <div>{record?.homestay_id?.view}</div>;
-        },
-      },
+      // {
+      //   title: 'Đánh giá',
+      //   dataIndex: 'rate',
+      //   key: 'rate',
+      //   width: 100,
+      //   render: (n, record) => {
+      //     return <div>{record?.homestay_id?.rate}</div>;
+      //   },
+      // },
+      // {
+      //   title: 'Lượt xem',
+      //   dataIndex: 'view',
+      //   key: 'view',
+      //   width: 100,
+      //   render: (n, record) => {
+      //     return <div>{record?.homestay_id?.view}</div>;
+      //   },
+      // },
       {
         title: 'Created at',
         dataIndex: 'createdAt',
@@ -181,29 +181,35 @@ export default function RoomsPage(props) {
         },
       },
 
-      {
-        title: 'Trạng thái',
-        dataIndex: 'status',
-        key: 'status',
-        width: 150,
-        render: (n, record) => {
-          return (
-            <Switch
-              style={{ opacity: 1 }}
-              defaultChecked
-              checked={record?.status}
-              disabled={true}
-            />
-          );
-        },
-      },
+      // {
+      //   title: 'Trạng thái',
+      //   dataIndex: 'status',
+      //   key: 'status',
+      //   width: 150,
+      //   render: (n, record) => {
+      //     return (
+      //       <Switch
+      //         style={{ opacity: 1 }}
+      //         defaultChecked
+      //         checked={record?.status}
+      //         disabled={true}
+      //       />
+      //     );
+      //   },
+      // },
       {
         title: 'Action',
         key: 'operation',
         fixed: 'right',
         width: 100,
         render: (r) => (
-          <ActionTable id={r._id} dataDetail={rooms} funcDelete={deleteRoom} showActionEdit={false} />
+          <ActionTable
+            id={r._id}
+            dataDetail={rooms}
+            funcDelete={deleteRoom}
+            showActionEdit={false}
+            showActionDelete={false}
+          />
         ),
       },
     ],

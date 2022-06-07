@@ -183,22 +183,22 @@ export default function AdminCategoryPage(props) {
         },
       },
 
-      {
-        title: 'Trạng thái',
-        dataIndex: 'status',
-        key: 'status',
-        width: 150,
-        render: (n, record) => {
-          return (
-            <Switch
-              style={{ opacity: 1 }}
-              defaultChecked
-              checked={record?.status}
-              disabled={true}
-            />
-          );
-        },
-      },
+      // {
+      //   title: 'Trạng thái',
+      //   dataIndex: 'status',
+      //   key: 'status',
+      //   width: 150,
+      //   render: (n, record) => {
+      //     return (
+      //       <Switch
+      //         style={{ opacity: 1 }}
+      //         defaultChecked
+      //         checked={record?.status}
+      //         disabled={true}
+      //       />
+      //     );
+      //   },
+      // },
       {
         title: 'Action',
         key: 'operation',

@@ -88,27 +88,27 @@ export default function UsersPage(props) {
         key: 'roles',
         width: 120,
       },
-      {
-        title: 'Active',
-        dataIndex: 'active',
-        key: 'active',
-        width: 150,
-        render: (n, record) => (
-          <Switch
-            style={{ opacity: 1 }}
-            defaultChecked
-            checked={record?.active}
-            disabled={true}
-          />
-        ),
-      },
+      // {
+      //   title: 'Active',
+      //   dataIndex: 'active',
+      //   key: 'active',
+      //   width: 150,
+      //   render: (n, record) => (
+      //     <Switch
+      //       style={{ opacity: 1 }}
+      //       defaultChecked
+      //       checked={record?.active}
+      //       disabled={true}
+      //     />
+      //   ),
+      // },
       {
         title: 'Action',
         key: 'operation',
         fixed: 'right',
         width: 100,
         render: (r) => (
-          <ActionTable id={r._id} dataDetail={users} funcDelete={deleteUser} />
+          <ActionTable id={r._id} dataDetail={users} funcDelete={deleteUser}  showActionDelete={false}  />
         ),
       },
     ],

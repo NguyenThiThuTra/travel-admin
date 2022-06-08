@@ -58,20 +58,20 @@ export function AdminMenu() {
               <Menu.Item key="users">
                 <Link to={`${match.path}/users`}>Users </Link>
               </Menu.Item>
-              <Menu.Item key="destinations">
+              {/* <Menu.Item key="destinations">
                 <Link to={`${match.path}/destinations`}>Destinations </Link>
-              </Menu.Item>
+              </Menu.Item> */}
             </Fragment>
           )}
 
-          <Menu.Item key="rooms">
+          {/* <Menu.Item key="rooms">
             <Link to={`${match.path}/rooms`}>Rooms </Link>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key="orders">
-            <Link to={`${match.path}/orders`}>Orders </Link>
+            <Link to={`${match.path}/orders`}>Booking </Link>
           </Menu.Item>
           <Menu.Item key="category">
-            <Link to={`${match.path}/category`}>Categorys </Link>
+            <Link to={`${match.path}/category`}>Rooms </Link>
           </Menu.Item>
           {/* <Menu.Item key="7">
             <Link to={`${match.path}/favourite`}>Favourite </Link>

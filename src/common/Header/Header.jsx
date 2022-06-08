@@ -77,11 +77,11 @@ const Header = () => {
           </Menu.Item>
         </React.Fragment>
       )}
-      {currentUser?.data?.roles === 'admin' && (
+      {/* {currentUser?.data?.roles === 'admin' && (
         <Menu.Item onClick={() => history.push('/admin/homestays')}>
           <div>Admin</div>
         </Menu.Item>
-      )}
+      )} */}
       <Menu.Item onClick={handleLogout}>
         <div>Đăng xuất</div>
       </Menu.Item>

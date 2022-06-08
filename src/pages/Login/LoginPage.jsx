@@ -1,13 +1,22 @@
 import { Button, Form, Input } from 'antd';
-import { login } from 'features/Auth/AuthSlice';
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { login, useCurrentUserSelector } from 'features/Auth/AuthSlice';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RouteConstant } from 'constants/RouteConstant';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const currentUser = useSelector(useCurrentUserSelector);
+
+  useEffect(() => {
+    if (!currentUser) return false;
+    if (currentUser?.data?.roles === 'admin') {
+      history.push(RouteConstant.AdminHomestay.path);
+    }
+  }, [currentUser]);
 
   const onFinish = async (values) => {
     try {

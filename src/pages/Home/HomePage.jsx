@@ -4,8 +4,8 @@ import CarouselCpn from '../../components/Home/Carousel/Carousel';
 const HomePage = () => {
   return (
     <div className="HomePage">
-      <CarouselCpn />
-      {/* <LoginPage /> */}
+      {/* <CarouselCpn /> */}
+      <LoginPage />
     </div>
   );
 };

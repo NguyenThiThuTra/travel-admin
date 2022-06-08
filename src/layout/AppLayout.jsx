@@ -1,9 +1,7 @@
 import { ArrowUpOutlined } from '@ant-design/icons';
 import { BackTop, Spin } from 'antd';
 import Header from 'common/Header/Header';
-import PopupChat from 'common/PopupChat/PopupChat';
 import { HIDDEN_HEADER } from 'constants/pathnameSpecial';
-import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
 import { useLoadingAppSelector } from 'features/commonSlice';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -11,10 +9,11 @@ import { useLocation } from 'react-router-dom';
 import { flagPathname } from 'utils/flagPathname';
 
 export default function AppLayout({ children }) {
-  let location = useLocation();
+  const location = useLocation();
 
   const loadingApp = useSelector(useLoadingAppSelector);
-  const currentUser = useSelector(useCurrentUserSelector);
+  // const currentUser = useSelector(useCurrentUserSelector);
+
   return (
     <React.StrictMode>
       <Spin spinning={loadingApp} tip="Loading...">
@@ -26,7 +25,7 @@ export default function AppLayout({ children }) {
           {/*End LIST_ROUTE    */}
 
           {/* popup chat admin */}
-          {currentUser && <PopupChat />}
+          {/* {currentUser && <PopupChat />} */}
 
           <BackTop style={{ bottom: '100px' }}>
             <div

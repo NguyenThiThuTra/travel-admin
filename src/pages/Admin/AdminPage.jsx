@@ -1,21 +1,19 @@
 import { Col, Row } from 'antd';
-import React, { useEffect } from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { PrivateRoute } from 'common/PrivateRoute';
 import { AdminMenu } from 'components/Admin/AdminMenu';
+import AdminCategoryPage from 'components/Admin/Category/Category';
 import ActionFormDestination from 'components/Admin/Destinations/ActionFormDestination';
 import DestinationsPage from 'components/Admin/Destinations/Destinations';
 import ActionFormHomestay from 'components/Admin/Homestays/ActionFormHomestay';
 import HomestaysPage from 'components/Admin/Homestays/Homestays';
+import OrderDetail from 'components/Admin/Orders/OrderDetail';
+import OrdersPage from 'components/Admin/Orders/Orders';
 import ActionFormRoom from 'components/Admin/Rooms/ActionFormRoom';
 import RoomsPage from 'components/Admin/Rooms/Rooms';
 import ActionFormUser from 'components/Admin/Users/ActionFormUser';
 import UsersPage from 'components/Admin/Users/Users';
-import OrdersPage from 'components/Admin/Orders/Orders';
-import OrderDetail from 'components/Admin/Orders/OrderDetail';
-import { PrivateRoute } from 'common/PrivateRoute';
-import AdminCategoryPage from 'components/Admin/Category/Category';
-import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { Switch, useRouteMatch } from 'react-router-dom';
 export const MENU_ADMIN_ROUTES = [
   { id: 1, element: <UsersPage />, path: 'users' },
   { id: 2, element: <ActionFormUser />, path: 'users/:action' },

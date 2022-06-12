@@ -33,6 +33,7 @@ export default function AdminCategoryPage(props) {
   const currentUser = useSelector(useCurrentUserSelector);
   const roomRemoved = useSelector(useRoomRemovedSelector);
   const category = useSelector(useCategorySelector);
+  
   useEffect(() => {
     const role = currentUser?.data?.roles;
     if (role) {
@@ -119,7 +120,16 @@ export default function AdminCategoryPage(props) {
         },
       },
       {
-        title: 'description',
+        title: 'Số lượng phòng',
+        width: 150,
+        dataIndex: 'quantity',
+        key: 'description',
+        render: (n, record) => {
+          return <div>{record?.quantity}</div>;
+        },
+      },
+      {
+        title: 'Mô tả ',
         width: 250,
         dataIndex: 'description',
         key: 'description',

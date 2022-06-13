@@ -96,7 +96,6 @@ export default function ActionFormCategory() {
   //default form data
   useEffect(() => {
     const role = currentUser?.data?.roles;
-    // console.log('role', role);
     async function fetchHomestayByUserId() {
       if ((role === 'user' || role === 'admin') && action === 'add') {
         const resultAction = await dispatch(

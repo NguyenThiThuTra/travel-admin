@@ -75,7 +75,6 @@ export function CommentList() {
 
   const isFirstRender = useIsFirstRender();
   useEffect(() => {
-    console.log({ id });
     if (!id) {
       return;
     }
@@ -95,7 +94,6 @@ export function CommentList() {
     };
     getComments();
   }, [id, commentPost, commentUpdate, paging]);
-  console.log({ comments, dataComments });
 
   // get my order in homestay
   useEffect(() => {
@@ -384,7 +382,7 @@ export function CommentList() {
             cursor: 'pointer',
           }}
         >
-          Load more
+          Xem thêm
         </div>
       )}
     </Fragment>

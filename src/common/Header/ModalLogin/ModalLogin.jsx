@@ -53,7 +53,6 @@ const ModalLogin = (props) => {
         dispatch(signup(values));
       }
     } catch (error) {
-      console.log('hihi');
       console.error(error);
     }
   };

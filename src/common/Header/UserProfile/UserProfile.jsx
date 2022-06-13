@@ -52,7 +52,6 @@ const UserProfile = (props) => {
   };
   const onChange = async ({ file, fileList }) => {
     setFileList((prev) => fileList);
-    // console.log({ originFileObj });
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file);
     }
@@ -79,7 +78,6 @@ const UserProfile = (props) => {
   const onFinish = async (values) => {
     try {
       const { gender, name, phone_number } = values;
-      // console.log({ fileListONE: fileList[0] });
       const formData = new FormData();
       fileAvatar && formData.append('avatar', fileAvatar);
       formData.append('gender', gender);

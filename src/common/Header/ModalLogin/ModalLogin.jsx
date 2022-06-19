@@ -31,23 +31,7 @@ const ModalLogin = (props) => {
   const onFinish = async (values) => {
     try {
       if (nameForm === 'sign-in') {
-        const currentUser = await dispatch(login(values)).unwrap();
-        const user_id = currentUser?.data?._id;
-        const resultAction = await dispatch(
-          fetchAllHomestays({
-            filters: { user_id },
-          })
-        );
-        const originalPromiseResult = await unwrapResult(resultAction);
-        const role = currentUser?.data?.roles;
-        if (role) {
-          if (role === 'admin') {
-            history.push('/admin/orders');
-          }
-          if (role === 'user') {
-            history.push('/my-homestay/orders');
-          }
-        }
+        dispatch(login(values));
       }
       if (nameForm !== 'sign-in') {
         dispatch(signup(values));

@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RouteConstant } from 'constants/RouteConstant';
+import { PERMISSIONS } from 'constants/permissions';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (!currentUser) return false;
-    if (currentUser?.data?.roles === 'admin') {
+    if (currentUser?.data?.roles === PERMISSIONS.admin) {
       history.push(RouteConstant.AdminHomestay.path);
     }
   }, [currentUser]);
@@ -21,7 +22,6 @@ const LoginPage = () => {
   const onFinish = async (values) => {
     try {
       await dispatch(login(values)).unwrap();
-      history.push(RouteConstant.AdminHomestay.path);
     } catch (error) {}
   };
 

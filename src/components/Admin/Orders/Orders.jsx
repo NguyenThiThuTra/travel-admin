@@ -5,6 +5,7 @@ import {
   ORDER_STATUS_COLOR,
   ORDER_STATUS_VALUE,
 } from 'constants/order';
+import { PERMISSIONS } from 'constants/permissions';
 import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
 import { fetchAllHomestays } from 'features/Homestay/HomestaySlice';
 import {
@@ -43,40 +44,37 @@ export default function OrdersPage(props) {
   useEffect(() => {
     const getOrderHomestayById = async () => {
       const role = currentUser?.data?.roles;
-      if (role) {
-        if (role === 'admin') {
-          const payload = {
-            ...querySearch,
-          };
-          filterStatus && (payload.filters = { status: filterStatus });
-          return dispatch(getAllOrder(payload));
-        }
-
-        const queryAllHomestay = {
+      if (role === PERMISSIONS.admin) {
+        const payload = {
           ...querySearch,
-          filters: {
-            user_id: currentUser?.data?._id,
-          },
         };
-        const resultAction = await dispatch(
-          fetchAllHomestays(queryAllHomestay)
-        ).unwrap();
-        const homestay_id = resultAction?.data?.[0]?._id;
-
-        // if (role === 'user') {
-        if (homestay_id) {
-          const payload = {
-            ...querySearch,
-            filters: {
-              homestay_id: homestay_id,
-            },
-          };
-          dispatch(getAllOrder(payload));
-          return;
-        }
-
-        // }
+        filterStatus && (payload.filters = { status: filterStatus });
+        return dispatch(getAllOrder(payload));
       }
+
+      // if (role === PERMISSIONS.user) {
+      //   const queryAllHomestay = {
+      //     ...querySearch,
+      //     filters: {
+      //       user_id: currentUser?.data?._id,
+      //     },
+      //   };
+      //   const resultAction = await dispatch(
+      //     fetchAllHomestays(queryAllHomestay)
+      //   ).unwrap();
+      //   const homestay_id = resultAction?.data?.[0]?._id;
+
+      //   if (homestay_id) {
+      //     const payload = {
+      //       ...querySearch,
+      //       filters: {
+      //         homestay_id: homestay_id,
+      //       },
+      //     };
+      //     dispatch(getAllOrder(payload));
+      //     return;
+      //   }
+      // }
     };
     getOrderHomestayById();
 

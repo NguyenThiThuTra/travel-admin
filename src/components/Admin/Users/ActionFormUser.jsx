@@ -17,6 +17,7 @@ import {
 } from '../../../constants/FormLayoutAnt';
 import { getCurrentUser } from '../../../features/Auth/AuthSlice';
 import { objectToFormData } from '../../../helpers/ConvertObjectToFormData';
+import { PERMISSIONS } from 'constants/permissions';
 const { Title } = Typography;
 const { Option } = Select;
 
@@ -278,7 +279,7 @@ export default function ActionFormUser() {
             <Option value="other">Khác</Option>
           </Select>
         </Form.Item>
-        {currentUser?.data?.roles === 'admin' && (
+        {currentUser?.data?.roles === PERMISSIONS.admin && (
           <Form.Item
             name="roles"
             label="Quyền của tài khoản"
@@ -290,8 +291,8 @@ export default function ActionFormUser() {
             ]}
           >
             <Select placeholder="Chọn quyền của tài khoản">
-              <Option value="user">User</Option>
-              <Option value="admin">Admin</Option>
+              <Option value={PERMISSIONS.user}>User</Option>
+              <Option value={PERMISSIONS.admin}>Admin</Option>
             </Select>
           </Form.Item>
         )}

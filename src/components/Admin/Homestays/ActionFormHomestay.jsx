@@ -15,6 +15,8 @@ import provincesOpenApi from 'api/provincesOpenApi';
 import { ErrorMessage } from 'common/ErrorMessage';
 import { LabelRequired } from 'common/LabelRequired';
 import { formItemLayout, tailFormItemLayout } from 'constants/FormLayoutAnt';
+import { PERMISSIONS } from 'constants/permissions';
+import { RouteConstant } from 'constants/RouteConstant';
 import {
   addHomestay,
   getHomestay,
@@ -197,11 +199,11 @@ export default function ActionFormHomestay() {
       reset({
         user_id: currentUser?.data?._id,
       });
-      if (role === 'user') {
-        history.push('/my-homestay/homestays');
-      }
-      if (role === 'admin') {
-        history.push('/admin/homestays');
+      // if (role === PERMISSIONS.user) {
+      //   history.push('/my-homestay/homestays');
+      // }
+      if (role === PERMISSIONS.admin) {
+        history.push(RouteConstant.AdminHomestay);
       }
     } catch (error) {
       message.error('Error');
@@ -307,7 +309,8 @@ export default function ActionFormHomestay() {
                   <Input
                     {...field}
                     disabled={
-                      action !== 'add' || currentUser?.data?.roles === 'user'
+                      action !== 'add' ||
+                      currentUser?.data?.roles === PERMISSIONS.user
                     }
                   />
                 );

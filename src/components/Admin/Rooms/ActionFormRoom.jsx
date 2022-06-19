@@ -14,7 +14,9 @@ import {
 import { ErrorMessage } from 'common/ErrorMessage';
 import { LabelRequired } from 'common/LabelRequired';
 import { formItemLayout, tailFormItemLayout } from 'constants/FormLayoutAnt';
+import { PERMISSIONS } from 'constants/permissions';
 import { ROOM_TYPES } from 'constants/room';
+import { RouteConstant } from 'constants/RouteConstant';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -91,10 +93,8 @@ export default function ActionFormRoom() {
   const [imageGallery, setImageGallery] = useState();
   //default form data
   useEffect(() => {
-    const role = currentUser?.data?.roles;
-    // console.log('role', role);
     async function defaultFormUser() {
-      if ((role === 'user' || role === 'admin') && action === 'add') {
+      if (action === 'add') {
         reset({
           user_id: currentUser?.data?._id,
         });
@@ -172,11 +172,11 @@ export default function ActionFormRoom() {
         ).unwrap();
       }
       const role = currentUser?.data?.roles;
-      if (role === 'user') {
+      if (role === PERMISSIONS.user) {
         history.push('/my-homestay/rooms');
       }
-      if (role === 'admin') {
-        history.push('/admin/rooms');
+      if (role === PERMISSIONS.admin) {
+        history.push(RouteConstant.AdminRoom);
       }
     } catch (e) {
       message.error('Error');

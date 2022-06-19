@@ -1,5 +1,6 @@
 import { AppstoreOutlined } from '@ant-design/icons';
 import { Divider, Menu, Switch } from 'antd';
+import { PERMISSIONS } from 'constants/permissions';
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -43,26 +44,15 @@ export function AdminMenu() {
         mode={mode}
         theme={theme}
       >
-        {/* <Menu.Item key="1" icon={<MailOutlined />}>
-          Option1
-        </Menu.Item>
-        <Menu.Item key="2" icon={<CalendarOutlined />}>
-          Navigation Two
-        </Menu.Item> */}
         <SubMenu key="sub1" icon={<AppstoreOutlined />} title="Danh mục">
           <Menu.Item key="homestays">
             <Link to={`${match.path}/homestays`}>Homestays </Link>
           </Menu.Item>
-          {currentUser?.data?.roles === 'admin' && (
-            <Fragment>
-              <Menu.Item key="users">
-                <Link to={`${match.path}/users`}>Users </Link>
-              </Menu.Item>
-              {/* <Menu.Item key="destinations">
-                <Link to={`${match.path}/destinations`}>Destinations </Link>
-              </Menu.Item> */}
-            </Fragment>
-          )}
+          <Fragment>
+            <Menu.Item key="users">
+              <Link to={`${match.path}/users`}>Users </Link>
+            </Menu.Item>
+          </Fragment>
 
           {/* <Menu.Item key="rooms">
             <Link to={`${match.path}/rooms`}>Rooms </Link>
@@ -73,20 +63,7 @@ export function AdminMenu() {
           <Menu.Item key="category">
             <Link to={`${match.path}/category`}>Rooms </Link>
           </Menu.Item>
-          {/* <Menu.Item key="7">
-            <Link to={`${match.path}/favourite`}>Favourite </Link>
-          </Menu.Item>
-          <SubMenu key="sub1-2" title="OrderSchema">
-            <Menu.Item key="8">Option 5</Menu.Item>
-            <Menu.Item key="9">Option 6</Menu.Item>
-          </SubMenu> */}
         </SubMenu>
-        {/* <SubMenu key="sub2" icon={<SettingOutlined />} title="Navigation Three">
-          <Menu.Item key="10">Option 7</Menu.Item>
-          <Menu.Item key="11">Option 8</Menu.Item>
-          <Menu.Item key="12">Option 9</Menu.Item>
-          <Menu.Item key="13">Option 10</Menu.Item>
-        </SubMenu> */}
       </Menu>
     </Fragment>
   );

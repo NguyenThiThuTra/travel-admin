@@ -12,7 +12,9 @@ import {
   Typography,
   Upload,
 } from 'antd';
+import { PERMISSIONS } from 'constants/permissions';
 import { ROOM_TYPES } from 'constants/room';
+import { RouteConstant } from 'constants/RouteConstant';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -95,9 +97,8 @@ export default function ActionFormCategory() {
   const [imageGallery, setImageGallery] = useState();
   //default form data
   useEffect(() => {
-    const role = currentUser?.data?.roles;
     async function fetchHomestayByUserId() {
-      if ((role === 'user' || role === 'admin') && action === 'add') {
+      if (action === 'add') {
         const resultAction = await dispatch(
           fetchAllHomestays({
             filters: { user_id: currentUser?.data?._id },
@@ -106,7 +107,7 @@ export default function ActionFormCategory() {
         const originalPromiseResult = await unwrapResult(resultAction);
         reset({
           homestay_id: originalPromiseResult?.data?.[0]?._id,
-          user_id: currentUser?.data?._id 
+          user_id: currentUser?.data?._id,
         });
       }
     }
@@ -125,7 +126,7 @@ export default function ActionFormCategory() {
         const { name, type, quantity, price, description, images, avatar } =
           category;
         reset({
-          user_id:homestay?.user_id,
+          user_id: homestay?.user_id,
           homestay_id,
           name,
           type,
@@ -174,11 +175,11 @@ export default function ActionFormCategory() {
         ).unwrap();
       }
       const role = currentUser?.data?.roles;
-      if (role === 'user') {
-        history.push('/my-homestay/rooms');
-      }
-      if (role === 'admin') {
-        history.push('/admin/rooms');
+      // if (role === PERMISSIONS.user) {
+      //   history.push('/my-homestay/rooms');
+      // }
+      if (role === PERMISSIONS.admin) {
+        history.push(RouteConstant.AdminRoom);
       }
     } catch (e) {
       message.error('Error');
@@ -273,8 +274,7 @@ export default function ActionFormCategory() {
         <Form.Item
           label={<LabelRequired title="User ID" />}
           className={
-            errors?.user_id &&
-            'ant-form-item-with-help ant-form-item-has-error'
+            errors?.user_id && 'ant-form-item-with-help ant-form-item-has-error'
           }
         >
           <Controller

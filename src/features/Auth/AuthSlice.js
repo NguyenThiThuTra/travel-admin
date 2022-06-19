@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { notification } from 'antd';
+import { PERMISSIONS } from 'constants/permissions';
 import { setLoadingApp } from 'features/commonSlice';
 import jwt_decode from 'jwt-decode';
 import authApi from '../../api/authApi';
@@ -9,7 +10,7 @@ export function detectLogin() {
   const token = localStorage.getItem('access_token');
   if (token) {
     const decodedToken = jwt_decode(token);
-    // console.log('Decoded Token', decodedToken);
+    console.log('Decoded Token', decodedToken);
     const currentDate = new Date();
     // JWT exp is in seconds
     if (decodedToken.exp * 1000 < currentDate.getTime()) {
@@ -28,6 +29,17 @@ export const login = createAsyncThunk(
     try {
       dispatch(setLoadingApp(true));
       const response = await authApi.login(payload);
+      const permissions = await response?.data?.roles;
+      if (permissions !== PERMISSIONS.admin) {
+        dispatch(setLoadingApp(false));
+        notification.error({
+          message:
+            'Đăng nhập thất bại, vui lòng kiểm tra lại email và password !',
+          duration: 1.5,
+          style: { backgroundColor: '#f8d7da' },
+        });
+        return false;
+      }
       localStorage.setItem('access_token', response.token);
       notification.success({
         message: 'Đăng nhập thành công !',
@@ -81,6 +93,19 @@ export const getCurrentUser = createAsyncThunk(
       const login = detectLogin();
       if (login.isLoggedIn && login.user_id) {
         const response = await userApi.getUser(login.user_id);
+        const permissions = await response?.data?.roles;
+        if (permissions !== PERMISSIONS.admin) {
+          notification.error({
+            message:
+              'Đăng nhập thất bại, vui lòng kiểm tra lại email và password !',
+            duration: 1.5,
+            style: { backgroundColor: '#f8d7da' },
+          });
+          dispatch(logout());
+          dispatch(setLoadingApp(false));
+          return false;
+        }
+        console.log({ response });
         dispatch(setLoadingApp(false));
         return response;
       }
@@ -166,8 +191,9 @@ const authSlices = createSlice({
 });
 //actions
 export const authActions = authSlices.actions;
-export const useCurrentUserSelector = (state) => state.auth.currentUser;
+export const { logout } = authActions;
 //selectors
+export const useCurrentUserSelector = (state) => state.auth.currentUser;
 
 //reducer
 const authReducer = authSlices.reducer;

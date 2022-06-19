@@ -1,4 +1,5 @@
 import { Switch } from 'antd';
+import { PERMISSIONS } from 'constants/permissions';
 import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
 import moment from 'moment';
 import queryString from 'query-string';
@@ -37,18 +38,18 @@ export default function RoomsPage(props) {
       const payload = {
         ...querySearch,
       };
-      if (role === 'admin') {
+      if (role === PERMISSIONS.admin) {
         return dispatch(fetchAllRooms(payload));
       }
-      if (role === 'user') {
-        const payload = {
-          ...querySearch,
-          filters: {
-            user_id: currentUser?.data?._id,
-          },
-        };
-        dispatch(fetchAllRooms(payload));
-      }
+      // if (role === PERMISSIONS.user) {
+      //   const payload = {
+      //     ...querySearch,
+      //     filters: {
+      //       user_id: currentUser?.data?._id,
+      //     },
+      //   };
+      //   dispatch(fetchAllRooms(payload));
+      // }
     }
     /* eslint-disable */
   }, [location, roomRemoved, currentUser]);

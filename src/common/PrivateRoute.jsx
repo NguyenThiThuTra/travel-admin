@@ -1,3 +1,4 @@
+import { PERMISSIONS } from 'constants/permissions';
 import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -10,7 +11,7 @@ export function PrivateRoute(props) {
   // console.log({ isLoggedIn, currentUser });
   const checkPermission = useMemo(() => {
     if (isAdmin && currentUser) {
-      return currentUser.data.roles === 'admin';
+      return currentUser.data.roles === PERMISSIONS.admin;
     }
     return isLoggedIn;
   }, [currentUser]);

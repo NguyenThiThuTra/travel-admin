@@ -10,6 +10,7 @@ import {
 } from 'features/commonSlice';
 import { useDetectScroll } from 'hooks/useDetectScroll';
 import React, { useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { HiOutlineMenu } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -155,9 +156,13 @@ const Header = () => {
                     />
                   </Tooltip>
                 ) : (
-                  <Dropdown overlay={menu} placement="bottomLeft" arrow>
-                    <item.icon fontSize="2rem" />
-                  </Dropdown>
+                  <Fragment>
+                    {isLoggedIn && (
+                      <Dropdown overlay={menu} placement="bottomLeft" arrow>
+                        <item.icon fontSize="2rem" />
+                      </Dropdown>
+                    )}
+                  </Fragment>
                 )}
               </li>
             ))}

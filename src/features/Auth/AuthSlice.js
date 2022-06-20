@@ -127,7 +127,7 @@ const initialState = {
   currentUser: null,
   loading: false,
   error: undefined,
-  isLoggedIn: detectLogin().isLoggedIn,
+  isLoggedIn: detectLogin()?.isLoggedIn,
 };
 const authSlices = createSlice({
   name: 'auth',
@@ -144,8 +144,10 @@ const authSlices = createSlice({
   extraReducers: {
     //login
     [login.fulfilled]: (state, action) => {
-      state.isLoggedIn = true;
-      state.currentUser = action.payload;
+      if (action.payload) {
+        state.isLoggedIn = true;
+        state.currentUser = action.payload;
+      }
       state.error = undefined;
       state.loading = false;
     },

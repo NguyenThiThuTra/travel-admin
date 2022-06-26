@@ -71,13 +71,13 @@ export default function UsersPage(props) {
         width: 100,
       },
       {
-        title: 'Created at',
+        title: 'Ngày tạo',
         dataIndex: 'createdAt',
         key: 'createdAt',
         width: 150,
       },
       {
-        title: 'Updated at',
+        title: 'Ngày cập nhật',
         dataIndex: 'updatedAt',
         key: 'updatedAt',
         width: 150,
@@ -103,7 +103,7 @@ export default function UsersPage(props) {
       //   ),
       // },
       {
-        title: 'Action',
+        title: 'Thao tác',
         key: 'operation',
         fixed: 'right',
         width: 100,

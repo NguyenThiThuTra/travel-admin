@@ -9,12 +9,12 @@ export const addOrder = createAsyncThunk(
     try {
       dispatch(setLoadingApp(true));
       const response = await orderApi.add(payload);
-      message.success('Đặt hàng thành công');
+      message.success('Tiến hành thanh toán');
       dispatch(setLoadingApp(false));
       return response;
     } catch (error) {
       dispatch(setLoadingApp(false));
-      message.success('Đặt hàng thất bại');
+      message.error('Tiến hành thanh toán thất bại');
       return rejectWithValue(error?.response.data);
     }
   }

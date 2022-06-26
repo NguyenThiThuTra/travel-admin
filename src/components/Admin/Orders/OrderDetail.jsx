@@ -32,7 +32,7 @@ export default function OrderDetail() {
       {orderDetail && (
         <div>
           <Card>
-            <Descriptions title="User Info">
+            <Descriptions title="Thông tin người đặt">
               <Descriptions.Item label="Tên">{data?.name}</Descriptions.Item>
               <Descriptions.Item label="Điện thoại">
                 {data?.phone_number}

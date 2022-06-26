@@ -73,19 +73,19 @@ export default function DestinationsPage(props) {
         },
       },
       {
-        title: 'Created at',
+        title: 'Ngày tạo',
         dataIndex: 'createdAt',
         key: 'createdAt',
         width: 150,
       },
       {
-        title: 'Updated at',
+        title: 'Ngày cập nhật',
         dataIndex: 'updatedAt',
         key: 'updatedAt',
         width: 150,
       },
       {
-        title: 'Action',
+        title: 'Thao tác',
         key: 'operation',
         fixed: 'right',
         width: 100,

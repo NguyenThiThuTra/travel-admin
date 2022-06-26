@@ -170,7 +170,7 @@ export default function OrdersPage(props) {
         width: 150,
       },
       {
-        title: 'Created at',
+        title: 'Ngày tạo',
         dataIndex: 'createdAt',
         key: 'createdAt',
         width: 120,
@@ -267,7 +267,7 @@ export default function OrdersPage(props) {
         defaultSortOrder: 'ascend',
       },
       {
-        title: 'Action',
+        title: 'Thao tác',
         key: 'operation',
         fixed: 'right',
         width: 120,

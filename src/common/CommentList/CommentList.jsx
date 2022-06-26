@@ -209,7 +209,7 @@ export function CommentList() {
           <Fragment>
             <List
               className="comment-list"
-              header={`${dataComments.length} replies`}
+              header={`${dataComments.length} bình luận`}
               itemLayout="horizontal"
               dataSource={dataComments || []}
               renderItem={(item) => (

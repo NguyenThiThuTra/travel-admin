@@ -171,7 +171,6 @@ export default function AdminCategoryPage(props) {
         key: 'gallery',
         width: 250,
         render: (n, record) => {
-          console.log({ record });
           const visiblePreviewImageGallery = () => {
             if (record?.images?.length > 1) {
               console.log('hihi');

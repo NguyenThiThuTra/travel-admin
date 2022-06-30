@@ -463,7 +463,7 @@ export default function ActionFormCategory() {
               return (
                 <TextArea
                   {...field}
-                  placeholder="Địa chỉ"
+                  placeholder="Mô tả"
                   autoSize={{ minRows: 3, maxRows: 5 }}
                 />
               );

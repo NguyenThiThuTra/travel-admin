@@ -91,6 +91,23 @@ export const updateHomestay = createAsyncThunk(
   }
 );
 
+export const handleActiveHomestay = createAsyncThunk(
+  'homestay/handleActiveHomestay',
+  async (payload, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoadingApp(true));
+      const response = await homestayApi.handleActiveHomestay(payload);
+      message.success('Cập nhật thành công');
+      dispatch(setLoadingApp(false));
+      return response;
+    } catch (error) {
+      dispatch(setLoadingApp(false));
+      message.success('Cập nhật thất bại');
+      return rejectWithValue(error?.response.data);
+    }
+  }
+);
+
 const initialState = {
   homestays: null,
   homestay: null,
@@ -188,6 +205,16 @@ const homestaysSlices = createSlice({
       state.loading = true;
       state.error = undefined;
     },
+    [handleActiveHomestay.fulfilled]: (state, action) => {
+      state.error = undefined;
+      state.loading = false;
+      state.homestayUpdated = action.payload;
+    },
+    [handleActiveHomestay.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.homestayUpdated = null;
+    },
   },
 });
 //actions
@@ -197,6 +224,8 @@ export const useHomestaySelector = (state) => state.homestay.homestay;
 export const useHomestaysSelector = (state) => state.homestay.homestays;
 export const useHomestayRemovedSelector = (state) =>
   state.homestay.homestayRemoved;
+export const useHomestayUpdatedSelector = (state) =>
+  state.homestay.homestayUpdated;
 //selectors
 
 //reducer

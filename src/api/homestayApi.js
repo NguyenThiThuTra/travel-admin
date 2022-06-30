@@ -26,5 +26,9 @@ const homestayApi = {
     const url = `/homestays/${payload.id}`;
     return axiosClient.patch(url, payload.homestay);
   },
+  handleActiveHomestay(payload) {
+    const url = `/homestays/${payload.id}/active`;
+    return axiosClient.patch(url, payload.homestay);
+  },
 };
 export default homestayApi;

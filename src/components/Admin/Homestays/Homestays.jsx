@@ -1,4 +1,4 @@
-import { Image, Rate, Switch } from 'antd';
+import { Image, Popconfirm, Rate, Switch } from 'antd';
 import { ActionTable } from 'common/Table/ActionTable';
 import CustomTable from 'common/Table/CustomTable';
 import CustomTitleTable from 'common/Table/CustomTitleTable';
@@ -7,8 +7,10 @@ import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
 import {
   deleteHomestay,
   fetchAllHomestays,
+  handleActiveHomestay,
   useHomestayRemovedSelector,
   useHomestaysSelector,
+  useHomestayUpdatedSelector,
 } from 'features/Homestay/HomestaySlice';
 import moment from 'moment';
 import queryString from 'query-string';
@@ -31,6 +33,8 @@ export default function AdminHomestaysPage(props) {
   const loading = useSelector((state) => state.homestay.loading);
   const currentUser = useSelector(useCurrentUserSelector);
   const homestayRemoved = useSelector(useHomestayRemovedSelector);
+  const homestayUpdated = useSelector(useHomestayUpdatedSelector);
+
   React.useEffect(() => {
     const role = currentUser?.data?.roles;
     if (role) {
@@ -46,7 +50,7 @@ export default function AdminHomestaysPage(props) {
       dispatch(fetchAllHomestays(query));
     }
     /* eslint-disable */
-  }, [location, homestayRemoved, currentUser]);
+  }, [location, homestayRemoved, currentUser, homestayUpdated]);
   const onChangePagination = (pagination) => {
     let query = {
       ...querySearch,
@@ -90,7 +94,7 @@ export default function AdminHomestaysPage(props) {
         },
       },
       {
-        title: 'description',
+        title: 'Mô tả',
         width: 250,
         dataIndex: 'description',
         key: 'description',
@@ -261,23 +265,42 @@ export default function AdminHomestaysPage(props) {
           return <div>{moment(time).format('DD/MM/YYYY')} </div>;
         },
       },
-
-      // {
-      //   title: 'Active',
-      //   dataIndex: 'active',
-      //   key: 'active',
-      //   width: 150,
-      //   render: (n, record) => {
-      //     return (
-      //       <Switch
-      //         style={{ opacity: 1 }}
-      //         defaultChecked
-      //         checked={record.active}
-      //         disabled={true}
-      //       />
-      //     );
-      //   },
-      // },
+      {
+        title: 'Hoạt động',
+        dataIndex: 'active',
+        key: 'active',
+        width: 150,
+        render: (n, record) => {
+          console.log({ record });
+          return (
+            <Popconfirm
+              // huỷ đơn hàng
+              title={
+                record.active
+                  ? 'Bạn muốn dừng hoạt động của homestay?'
+                  : 'Bạn muốn mở lại hoạt động của homestay?'
+              }
+              onConfirm={() =>
+                dispatch(
+                  handleActiveHomestay({
+                    id: record?._id,
+                    homestay: { active: !record?.active },
+                  })
+                )
+              }
+              okText="Đồng ý"
+              cancelText="Không"
+            >
+              <Switch
+                style={{ opacity: 1 }}
+                // defaultChecked
+                checked={record.active}
+                // disabled={true}
+              />
+            </Popconfirm>
+          );
+        },
+      },
       {
         title: 'Thao tác',
         key: 'operation',

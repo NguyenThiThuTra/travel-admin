@@ -1,33 +1,33 @@
-import { Image, Switch } from 'antd';
-import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
-import moment from 'moment';
-import queryString from 'query-string';
-import React, { Fragment, useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { Image, Popconfirm, Switch } from 'antd';
 import { ActionTable } from 'common/Table/ActionTable';
 import CustomTable from 'common/Table/CustomTable';
 import CustomTitleTable from 'common/Table/CustomTitleTable';
+import { PERMISSIONS } from 'constants/permissions';
+import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
 import {
   deleteRoom,
   fetchAllCategory,
-  fetchAllRooms,
-  fetchAllRoomsInMyHomestay,
+  updateCategory,
+  useCategorySelector,
+  useCategoryUpdatedSelector,
   useRoomRemovedSelector,
   useRoomsLoadingSelector,
   useRoomsSelector,
-  useCategorySelector,
 } from 'features/Rooms/RoomsSlice';
-import { PERMISSIONS } from 'constants/permissions';
+import moment from 'moment';
+import queryString from 'query-string';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 const expandable = {
   expandedRowRender: (record) => <p>description</p>,
 };
 
 export default function AdminCategoryPage(props) {
-  let history = useHistory();
-  let match = useRouteMatch();
-  let location = useLocation();
+  const history = useHistory();
+  const match = useRouteMatch();
+  const location = useLocation();
   const querySearch = queryString.parse(location.search);
   const dispatch = useDispatch();
   const rooms = useSelector(useRoomsSelector);
@@ -35,6 +35,7 @@ export default function AdminCategoryPage(props) {
   const currentUser = useSelector(useCurrentUserSelector);
   const roomRemoved = useSelector(useRoomRemovedSelector);
   const category = useSelector(useCategorySelector);
+  const categoryUpdated = useSelector(useCategoryUpdatedSelector);
 
   useEffect(() => {
     const role = currentUser?.data?.roles;
@@ -56,7 +57,7 @@ export default function AdminCategoryPage(props) {
       // }
     }
     /* eslint-disable */
-  }, [location, roomRemoved, currentUser]);
+  }, [location, roomRemoved, currentUser, categoryUpdated]);
 
   const onChangePagination = (pagination) => {
     let query = {
@@ -291,23 +292,41 @@ export default function AdminCategoryPage(props) {
           return <div>{moment(time).format('DD/MM/YYYY')} </div>;
         },
       },
-
-      // {
-      //   title: 'Trạng thái',
-      //   dataIndex: 'status',
-      //   key: 'status',
-      //   width: 150,
-      //   render: (n, record) => {
-      //     return (
-      //       <Switch
-      //         style={{ opacity: 1 }}
-      //         defaultChecked
-      //         checked={record?.status}
-      //         disabled={true}
-      //       />
-      //     );
-      //   },
-      // },
+      {
+        title: 'Hoạt động',
+        dataIndex: 'active',
+        key: 'active',
+        width: 150,
+        render: (n, record) => {
+          return (
+            <Popconfirm
+              // huỷ đơn hàng
+              title={
+                record.active
+                  ? 'Bạn muốn dừng hoạt động của homestay?'
+                  : 'Bạn muốn mở lại hoạt động của homestay?'
+              }
+              onConfirm={() =>
+                dispatch(
+                  updateCategory({
+                    id: record?._id,
+                    category: { active: !record?.active },
+                  })
+                )
+              }
+              okText="Đồng ý"
+              cancelText="Không"
+            >
+              <Switch
+                style={{ opacity: 1 }}
+                // defaultChecked
+                checked={record.active}
+                // disabled={true}
+              />
+            </Popconfirm>
+          );
+        },
+      },
       {
         title: 'Thao tác',
         key: 'operation',

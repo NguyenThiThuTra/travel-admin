@@ -157,7 +157,6 @@ export default function AdminHomestaysPage(props) {
         render: (n, record) => {
           const visiblePreviewImageGallery = () => {
             if (record?.images?.length > 1) {
-              console.log('hihi');
               setImageGallery(record.images);
               setVisiblePreviewGroup(true);
             }
@@ -271,7 +270,6 @@ export default function AdminHomestaysPage(props) {
         key: 'active',
         width: 150,
         render: (n, record) => {
-          console.log({ record });
           return (
             <Popconfirm
               // huỷ đơn hàng

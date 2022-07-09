@@ -154,6 +154,7 @@ export const updateCategory = createAsyncThunk(
 
 const initialState = {
   category: null,
+  categoryUpdated: null,
   rooms: null,
   room: null,
   categoryInHomestay: null,
@@ -258,6 +259,21 @@ const roomsSlices = createSlice({
       state.loading = true;
       state.error = undefined;
     },
+    //update category
+    [updateCategory.fulfilled]: (state, action) => {
+      state.categoryUpdated = action.payload;
+      state.error = undefined;
+      state.loading = false;
+    },
+    [updateCategory.rejected]: (state, action) => {
+      state.categoryUpdated = null;
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [updateCategory.pending]: (state, action) => {
+      state.loading = true;
+      state.error = undefined;
+    },
   },
 });
 //actions
@@ -268,6 +284,8 @@ export const useCategorySelector = (state) => state.room.category;
 export const useRoomsSelector = (state) => state.room.rooms;
 export const useRoomRemovedSelector = (state) => state.room.roomRemoved;
 export const useRoomsLoadingSelector = (state) => state.room.loading;
+export const useCategoryUpdatedSelector = (state) =>
+  state.room.categoryUpdated;
 
 //reducer
 const roomsReducer = roomsSlices.reducer;

@@ -1,9 +1,8 @@
-import { Switch } from 'antd';
 import { PERMISSIONS } from 'constants/permissions';
 import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
 import moment from 'moment';
 import queryString from 'query-string';
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { ActionTable } from '../../../common/Table/ActionTable';
@@ -11,11 +10,9 @@ import CustomTable from '../../../common/Table/CustomTable';
 import CustomTitleTable from '../../../common/Table/CustomTitleTable';
 import {
   deleteRoom,
-  fetchAllRooms,
-  fetchAllRoomsInMyHomestay,
-  useRoomRemovedSelector,
+  fetchAllRooms, useRoomRemovedSelector,
   useRoomsLoadingSelector,
-  useRoomsSelector,
+  useRoomsSelector
 } from '../../../features/Rooms/RoomsSlice';
 const expandable = {
   expandedRowRender: (record) => <p>description</p>,
@@ -231,7 +228,7 @@ export default function RoomsPage(props) {
           defaultCurrent: Number(querySearch?.page) || 1,
           defaultPageSize: Number(querySearch?.limit) || 10,
         }}
-        expandable={expandable}
+        // expandable={expandable}
         title={() => <CustomTitleTable title="Danh sách phòng" />}
         // footer={() => <CustomFooterTable title="Here is footer" />}
       />

@@ -129,7 +129,7 @@ export default function UsersPage(props) {
           defaultCurrent: Number(querySearch?.page) || 1,
           defaultPageSize: Number(querySearch?.limit) || 10,
         }}
-        expandable={expandable}
+        // expandable={expandable}
         title={() => <CustomTitleTable title="Danh sách người dùng" />}
         // footer={() => <CustomFooterTable title="Here is footer" />}
       />

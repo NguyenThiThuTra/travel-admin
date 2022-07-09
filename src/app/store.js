@@ -6,7 +6,6 @@ import {
 } from '@reduxjs/toolkit';
 import usersReducer from 'features/Users/UsersSlice';
 import homestayReducer from 'features/Homestay/HomestaySlice';
-import destinationsReducer from 'features/Destinations/DestinationsSlice';
 import roomsReducer from 'features/Rooms/RoomsSlice';
 import authReducer from 'features/Auth/AuthSlice';
 import orderReducer from 'features/Order/OrderSlice';
@@ -43,7 +42,6 @@ const rootReducer = combineReducers({
   common: commonReducer,
   users: usersReducer,
   homestay: homestayReducer,
-  destination: destinationsReducer,
   room: roomsReducer,
   auth: authReducer,
   order: orderReducer,

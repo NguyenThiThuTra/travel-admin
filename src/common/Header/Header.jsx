@@ -111,12 +111,12 @@ const Header = () => {
     >
       <Row style={{ flex: 1 }}>
         <Col xs={6} sm={6} md={6} lg={10} span={10}>
-          <div className="toggle_menu">
+          {/* <div className="toggle_menu">
             <HiOutlineMenu
               color={`${!top ? '#000' : '#fff'}`}
               fontSize="2rem"
             />
-          </div>
+          </div> */}
           <div className="navbarMain">
             <ul className="navbar">
               {HEADER.ListItemNavbar.map((item) => (

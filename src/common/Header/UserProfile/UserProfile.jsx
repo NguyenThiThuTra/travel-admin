@@ -11,6 +11,7 @@ import {
   Upload,
 } from 'antd';
 import ImgCrop from 'antd-img-crop';
+import useWindowSize from 'hooks/useWindowSize';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBase64 } from 'utils/getBase64';
@@ -95,11 +96,12 @@ const UserProfile = (props) => {
       console.log(e);
     }
   };
-  const up = useSelector((state) => state.users.updateUser);
+
+  const windowSize = useWindowSize();
   return (
     <Drawer
-      title="Profile"
-      width={720}
+      title="Thông tin cá nhân"
+      width={windowSize?.width > 768 ? 720 : 350}
       onClose={props.onCloseUserProfile}
       visible={props.visibleUserProfile}
       bodyStyle={{ paddingBottom: 80 }}
@@ -122,17 +124,17 @@ const UserProfile = (props) => {
             hideRequiredMark
           >
             <Row gutter={[16, 16]}>
-              <Col span={12}>
+              <Col xs={24} sm={24} md={12} lg={12} span={12}>
                 <label htmlFor="id">Id người dùng</label>
                 <Input id="id" defaultValue={currentUser?.data?._id} disabled />
               </Col>
-              <Col span={12}>
+              <Col xs={24} sm={24} md={12} lg={12} span={12}>
                 <label htmlFor="name">Tên</label>
                 <Form.Item name="name" rules={[{ required: false }]}>
                   <Input id="name" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xs={24} sm={24} md={12} lg={12} span={12}>
                 <label htmlFor="gender">Giới tính</label>
                 <div>
                   <Form.Item name="gender" rules={[{ required: false }]}>
@@ -144,19 +146,19 @@ const UserProfile = (props) => {
                   </Form.Item>
                 </div>
               </Col>
-              <Col span={12}>
+              <Col xs={24} sm={24} md={12} lg={12} span={12}>
                 <label htmlFor="Email">Email</label>
                 <Form.Item name="email" rules={[{ required: false }]}>
                   <Input id="Email" disabled />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xs={24} sm={24} md={12} lg={12} span={12}>
                 <label htmlFor="phone_number">Số điện thoại</label>
                 <Form.Item name="phone_number" rules={[{ required: false }]}>
                   <Input id="phone_number" />
                 </Form.Item>
               </Col>
-              <Col span={24}>
+              <Col xs={24} sm={24} md={24} lg={24} span={24}>
                 <label htmlFor="avatar">Ảnh đại diện</label>
                 <ImgCrop id="avatar" rotate>
                   <Upload

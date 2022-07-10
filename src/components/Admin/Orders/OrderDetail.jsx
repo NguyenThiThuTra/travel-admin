@@ -4,7 +4,7 @@ import { ORDER_STATUS, ORDER_STATUS_COLOR } from 'constants/order';
 import {
   getOrder,
   useOrderDetailSelector,
-  useUpdateOrderStatusSelector
+  useUpdateOrderStatusSelector,
 } from 'features/Order/OrderSlice';
 import moment from 'moment';
 import React, { useEffect } from 'react';
@@ -23,9 +23,12 @@ export default function OrderDetail() {
     }
   }, [id, updateOrderStatus]);
   const totalPayment = (data) => {
-    return data?.order?.reduce((acc, item) => {
-      return acc + item?.select_room * item?.category_id?.price;
-    }, 0);
+    return (
+      data?.total_payment ||
+      data?.order?.reduce((acc, item) => {
+        return acc + item?.select_room * item?.category_id?.price;
+      }, 0)
+    );
   };
   return (
     <div>

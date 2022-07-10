@@ -5,16 +5,14 @@ import {
   Popconfirm,
   Space,
   Tag,
-  Typography
+  Typography,
 } from 'antd';
 import commentApi from 'api/comment';
 import orderApi from 'api/orderApi';
 import FormAssessmentHomestay from 'components/Homestay/FormAssessmentHomestay/FormAssessmentHomestay';
 import { ORDER_STATUS, ORDER_STATUS_COLOR } from 'constants/order';
 import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
-import {
-  updateOrder
-} from 'features/Order/OrderSlice';
+import { updateOrder } from 'features/Order/OrderSlice';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
@@ -62,6 +60,7 @@ export function OrderItem({ orderStatus, seller, data, totalPriceOrders }) {
   // total payment
   const totalPayment = useMemo(
     () =>
+      data?.total_payment ||
       data?.order?.reduce((acc, item) => {
         return acc + item?.select_room * item?.category_id?.price;
       }, 0),

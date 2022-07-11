@@ -106,15 +106,6 @@ export default function RoomsPage(props) {
         },
       },
       {
-        title: 'Giảm giá',
-        dataIndex: 'discount',
-        key: 'discount',
-        width: 100,
-        render: (n, record) => {
-          return <div>{record?.category_id?.discount}</div>;
-        },
-      },
-      {
         title: 'description',
         width: 250,
         dataIndex: 'description',

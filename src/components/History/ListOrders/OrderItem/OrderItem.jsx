@@ -201,7 +201,6 @@ export function OrderItem({ orderStatus, seller, data, totalPriceOrders }) {
                   <Button type="primary">Xác nhận</Button>
                 </Popconfirm>
                 <Popconfirm
-                  // huỷ đơn hàng
                   title="Bạn có chắc chắn muốn từ chối đơn hàng này?"
                   onConfirm={() => handleChangeStatus(ORDER_STATUS.rejected.en)}
                   okText="Đồng ý"

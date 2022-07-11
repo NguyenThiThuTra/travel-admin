@@ -205,7 +205,7 @@ export default function PopupChat() {
         >
           {/* <div onClick={() => moreMessage()}> MORE MORE </div> */}
           <div className="chat-box__header">
-            <BsChatFill color="#ee4d2d" fontSize={20} />
+            <BsChatFill color="#ff4d4f" fontSize={20} />
             <span className="chat-box__title">
               <strong>Chat</strong>
             </span>
@@ -213,7 +213,10 @@ export default function PopupChat() {
               onClick={() => dispatch(toggleOpenPopupChatBox())}
               className="chat-box__close"
             >
-              <AiOutlineCloseCircle color="#ee4d2d" fontSize={25} />
+              <AiOutlineCloseCircle
+                color="#ff4d4f"
+                fontSize={25}
+              />
             </span>
           </div>
           <div className="chat-box__main">

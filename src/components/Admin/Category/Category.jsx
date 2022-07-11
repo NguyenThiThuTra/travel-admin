@@ -114,15 +114,6 @@ export default function AdminCategoryPage(props) {
         },
       },
       {
-        title: 'Giảm giá',
-        dataIndex: 'discount',
-        key: 'discount',
-        width: 100,
-        render: (n, record) => {
-          return <div>{record?.discount}</div>;
-        },
-      },
-      {
         title: 'Số lượng phòng',
         width: 150,
         dataIndex: 'quantity',
@@ -300,11 +291,10 @@ export default function AdminCategoryPage(props) {
         render: (n, record) => {
           return (
             <Popconfirm
-              // huỷ đơn hàng
               title={
                 record.active
-                  ? 'Bạn muốn dừng hoạt động của homestay?'
-                  : 'Bạn muốn mở lại hoạt động của homestay?'
+                  ? 'Bạn muốn dừng hoạt động của phòng này không?'
+                  : 'Bạn muốn mở lại hoạt động của phòng này không?'
               }
               onConfirm={() =>
                 dispatch(

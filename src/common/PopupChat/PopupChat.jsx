@@ -44,7 +44,6 @@ export default function PopupChat() {
     queryConversations,
     { idField: 'id' }
   );
-
   const [currentConversation, setCurrentConversation] = useState(null);
 
   const onChangeCurrentConversation = (conversation_id) => {
@@ -213,10 +212,7 @@ export default function PopupChat() {
               onClick={() => dispatch(toggleOpenPopupChatBox())}
               className="chat-box__close"
             >
-              <AiOutlineCloseCircle
-                color="#ff4d4f"
-                fontSize={25}
-              />
+              <AiOutlineCloseCircle color="#ff4d4f" fontSize={25} />
             </span>
           </div>
           <div className="chat-box__main">

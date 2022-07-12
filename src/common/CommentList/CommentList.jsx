@@ -27,6 +27,7 @@ import { getAllOrder, useOrderSelector } from 'features/Order/OrderSlice';
 import useIsFirstRender from 'hooks/useIsFirstRender';
 import moment from 'moment';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { AiFillPlusCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -44,8 +45,17 @@ const Editor = ({ onSubmit, submitting, onChange, value }) => {
           loading={submitting}
           onClick={onSubmit}
           type="primary"
+          icon={
+            <AiFillPlusCircle
+              style={{ marginRight: '5px' }}
+            />
+          }
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
         >
-          Add Comment
+          Thêm bình luận
         </Button>
       </Form.Item>
     </>
@@ -330,8 +340,17 @@ export function CommentList() {
                                         htmlType="submit"
                                         // loading={loading}
                                         type="primary"
+                                        icon={
+                                          <AiFillPlusCircle
+                                            style={{ marginRight: '5px' }}
+                                          />
+                                        }
+                                        style={{
+                                          display: 'flex',
+                                          alignItems: 'center',
+                                        }}
                                       >
-                                        Add Comment
+                                        Thêm bình luận
                                       </Button>
                                     </Form.Item>
                                   </Form>

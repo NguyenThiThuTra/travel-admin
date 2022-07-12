@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Switch } from 'antd';
+import { Image, Switch } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomFooterTable from '../../../common/Table/CustomFooterTable';
 import CustomTable from '../../../common/Table/CustomTable';
@@ -9,6 +9,7 @@ import { ActionTable } from '../../../common/Table/ActionTable';
 import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 import queryString from 'query-string';
 import { deleteUser } from '../../../features/Users/UsersSlice';
+import moment from 'moment';
 const expandable = {
   expandedRowRender: (record) => <p>description</p>,
 };
@@ -71,16 +72,48 @@ export default function UsersPage(props) {
         width: 100,
       },
       {
+        title: 'Ảnh đại diện',
+        dataIndex: 'avatar',
+        key: 'avatar',
+        width: 250,
+        render: (avatar, record) => {
+          return (
+            <div>
+              {avatar && (
+                <Image
+                  style={{
+                    maxWidth: '235px',
+                    maxHeight: '170px',
+                    width: '235px',
+                    height: '170px',
+                    objectFit: 'cover',
+                  }}
+                  preview={{ visible: false, mask: null }}
+                  src={avatar}
+                  alt="image preview"
+                />
+              )}
+            </div>
+          );
+        },
+      },
+      {
         title: 'Ngày tạo',
         dataIndex: 'createdAt',
         key: 'createdAt',
         width: 150,
+        render: (time) => {
+          return <div>{moment(time).format('DD/MM/YYYY')} </div>;
+        },
       },
       {
         title: 'Ngày cập nhật',
         dataIndex: 'updatedAt',
         key: 'updatedAt',
         width: 150,
+        render: (time) => {
+          return <div>{moment(time).format('DD/MM/YYYY')} </div>;
+        },
       },
       {
         title: 'Role',
@@ -108,7 +141,12 @@ export default function UsersPage(props) {
         fixed: 'right',
         width: 100,
         render: (r) => (
-          <ActionTable id={r._id} dataDetail={users} funcDelete={deleteUser}  showActionDelete={false}  />
+          <ActionTable
+            id={r._id}
+            dataDetail={users}
+            funcDelete={deleteUser}
+            showActionDelete={false}
+          />
         ),
       },
     ],

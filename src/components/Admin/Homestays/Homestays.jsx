@@ -16,7 +16,7 @@ import moment from 'moment';
 import queryString from 'query-string';
 import React, { useMemo, useState } from 'react';
 import { Fragment } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiFillEye, AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 const expandable = {
@@ -57,25 +57,29 @@ export default function AdminHomestaysPage(props) {
       page: pagination.current,
       limit: pagination.pageSize,
     };
-    history.push(`${match.path}?${queryString.stringify(query)}`);
+    history.push(`${match.url}?${queryString.stringify(query)}`);
+  };
+  const showListCategoryInHomestay = (category_id) => {
+    return history.push(`${match.url}/detail/${category_id}/categories`);
   };
 
   const columns = useMemo(
     () => [
-      // {
-      //   title: 'ID',
-      //   dataIndex: '_id',
-      //   key: '_id',
-      //   width: 220,
-      // },
-      // {
-      //   title: 'Id người dùng',
-      //   dataIndex: 'user_id',
-      //   key: 'user_id',
-      //   width: 220,
-      // },
       {
-        title: 'Tên ',
+        title: 'Tên chủ homestay',
+        dataIndex: 'user_id',
+        key: 'user_id',
+        width: 220,
+        sorter: (a, b) =>
+          a.user_id.name
+            .toLowerCase()
+            .localeCompare(b.user_id.name.toLowerCase()),
+        render: (user) => {
+          return <div>{user?.name}</div>;
+        },
+      },
+      {
+        title: 'Tên homestay ',
         width: 220,
         dataIndex: 'name',
         key: 'name',
@@ -309,6 +313,15 @@ export default function AdminHomestaysPage(props) {
             dataDetail={homestays}
             funcDelete={deleteHomestay}
             showActionDelete={false}
+            showActionCustom={
+              <AiFillEye
+                onClick={() => showListCategoryInHomestay(r._id)}
+                style={{ marginRight: '15px' }}
+                cursor="pointer"
+                fontSize="20px"
+                color="#1890ff"
+              />
+            }
           />
         ),
       },
@@ -334,14 +347,14 @@ export default function AdminHomestaysPage(props) {
             defaultCurrent: Number(querySearch?.page) || 1,
             defaultPageSize: Number(querySearch?.limit) || 10,
           }}
-          expandable={expandable}
+          // expandable={expandable}
           title={() => (
             <CustomTitleTable
               hideAdd={
                 currentUser?.data?.roles === PERMISSIONS.user &&
                 homestays?.data?.length > 0
               }
-              title="Danh sách homestays"
+              title="Danh sách homestay"
             />
           )}
           // footer={() => <CustomFooterTable title="Here is footer" />}

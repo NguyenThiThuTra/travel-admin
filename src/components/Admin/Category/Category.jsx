@@ -7,6 +7,7 @@ import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
 import {
   deleteRoom,
   fetchAllCategory,
+  handleActiveCategory,
   updateCategory,
   useCategorySelector,
   useCategoryUpdatedSelector,
@@ -17,7 +18,7 @@ import {
 import moment from 'moment';
 import queryString from 'query-string';
 import { Fragment, useEffect, useMemo, useState } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiFillEye, AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 const expandable = {
@@ -65,8 +66,13 @@ export default function AdminCategoryPage(props) {
       page: pagination.current,
       limit: pagination.pageSize,
     };
-    history.push(`${match.path}?${queryString.stringify(query)}`);
+    history.push(`${match.url}?${queryString.stringify(query)}`);
   };
+
+  const showListRoomInHomestay = (category_id) => {
+    return history.push(`${match.url}/detail/${category_id}/rooms`);
+  };
+
   const columns = useMemo(
     () => [
       // {
@@ -298,7 +304,7 @@ export default function AdminCategoryPage(props) {
               }
               onConfirm={() =>
                 dispatch(
-                  updateCategory({
+                  handleActiveCategory({
                     id: record?._id,
                     category: { active: !record?.active },
                   })
@@ -328,6 +334,15 @@ export default function AdminCategoryPage(props) {
             dataDetail={category}
             funcDelete={deleteRoom}
             showActionDelete={false}
+            showActionCustom={
+              <AiFillEye
+                onClick={() => showListRoomInHomestay(r._id)}
+                style={{ marginRight: '15px' }}
+                cursor="pointer"
+                fontSize="20px"
+                color="#1890ff"
+              />
+            }
           />
         ),
       },
@@ -354,8 +369,8 @@ export default function AdminCategoryPage(props) {
             defaultCurrent: Number(querySearch?.page) || 1,
             defaultPageSize: Number(querySearch?.limit) || 10,
           }}
-          expandable={expandable}
-          title={() => <CustomTitleTable title="Danh sách phòng" />}
+          // expandable={expandable}
+          title={() => <CustomTitleTable title="Danh sách loại phòng" />}
           // footer={() => <CustomFooterTable title="Here is footer" />}
         />
       </div>

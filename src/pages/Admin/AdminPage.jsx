@@ -8,6 +8,7 @@ import OrderDetail from 'components/Admin/Orders/OrderDetail';
 import OrdersPage from 'components/Admin/Orders/Orders';
 import ActionFormRoom from 'components/Admin/Rooms/ActionFormRoom';
 import ActionFormUser from 'components/Admin/Users/ActionFormUser';
+import RoomsPage from 'components/Admin/Rooms/Rooms';
 import UsersPage from 'components/Admin/Users/Users';
 import { Switch, useRouteMatch } from 'react-router-dom';
 export const MENU_ADMIN_ROUTES = [
@@ -17,6 +18,16 @@ export const MENU_ADMIN_ROUTES = [
   { id: 4, element: <HomestaysPage />, path: 'homestays' },
   { id: 4, element: <ActionFormHomestay />, path: 'homestays/:action' },
   { id: 5, element: <ActionFormHomestay />, path: 'homestays/:action/:id' },
+  {
+    id: 6,
+    element: <AdminCategoryPage />,
+    path: 'homestays/detail/:id/categories',
+  },
+  {
+    id: 7,
+    element: <RoomsPage />,
+    path: 'homestays/detail/:homestay_id/categories/detail/:id/rooms',
+  },
   // { id: 9, element: <RoomsPage />, path: 'rooms' },
   // { id: 10, element: <ActionFormRoom />, path: 'rooms/:action' },
   // {
@@ -34,6 +45,11 @@ export const MENU_ADMIN_ROUTES = [
     id: 16,
     element: <ActionFormRoom />,
     path: 'category/:action/:id',
+  },
+  {
+    id: 20,
+    element: <RoomsPage />,
+    path: 'category/detail/:id/rooms',
   },
 ];
 export default function AdminPage() {
@@ -54,7 +70,7 @@ export default function AdminPage() {
                 <PrivateRoute
                   key={route.id}
                   exact
-                  path={`${match.path}/${route.path}`}
+                  path={`${match.url}/${route.path}`}
                 >
                   {route.element}
                 </PrivateRoute>

@@ -1,55 +1,61 @@
+import { Button, Image, Popconfirm, Switch } from 'antd';
 import { PERMISSIONS } from 'constants/permissions';
 import { useCurrentUserSelector } from 'features/Auth/AuthSlice';
 import moment from 'moment';
 import queryString from 'query-string';
-import { useEffect, useMemo } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { IoChevronBackCircle } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import {
+  useHistory,
+  useLocation,
+  useParams,
+  useRouteMatch,
+} from 'react-router-dom';
 import { ActionTable } from '../../../common/Table/ActionTable';
 import CustomTable from '../../../common/Table/CustomTable';
 import CustomTitleTable from '../../../common/Table/CustomTitleTable';
 import {
   deleteRoom,
-  fetchAllRooms, useRoomRemovedSelector,
+  fetchAllRooms,
+  fetchAllRoomsInMyHomestay,
+  updateRoom,
+  useRoomRemovedSelector,
   useRoomsLoadingSelector,
-  useRoomsSelector
-} from '../../../features/Rooms/RoomsSlice';
+  useRoomsSelector,
+  useRoomUpdatedSelector,
+} from 'features/Rooms/RoomsSlice';
 const expandable = {
   expandedRowRender: (record) => <p>description</p>,
 };
 
 export default function RoomsPage(props) {
-  let history = useHistory();
-  let match = useRouteMatch();
-  let location = useLocation();
+  const { id } = useParams();
+  const history = useHistory();
+  const match = useRouteMatch();
+  const location = useLocation();
   const querySearch = queryString.parse(location.search);
   const dispatch = useDispatch();
   const rooms = useSelector(useRoomsSelector);
+  console.log({ rooms });
   const loading = useSelector(useRoomsLoadingSelector);
   const currentUser = useSelector(useCurrentUserSelector);
   const roomRemoved = useSelector(useRoomRemovedSelector);
+  const roomUpdated = useSelector(useRoomUpdatedSelector);
 
   useEffect(() => {
-    const role = currentUser?.data?.roles;
-    if (role) {
-      const payload = {
-        ...querySearch,
-      };
-      if (role === PERMISSIONS.admin) {
-        return dispatch(fetchAllRooms(payload));
-      }
-      // if (role === PERMISSIONS.user) {
-      //   const payload = {
-      //     ...querySearch,
-      //     filters: {
-      //       user_id: currentUser?.data?._id,
-      //     },
-      //   };
-      //   dispatch(fetchAllRooms(payload));
-      // }
-    }
+    if (!currentUser) return;
+
+    const payload = {
+      ...querySearch,
+      filters: {
+        category_id: id,
+      },
+    };
+    dispatch(fetchAllRooms(payload));
     /* eslint-disable */
-  }, [location, roomRemoved, currentUser]);
+  }, [location, roomRemoved, currentUser, roomUpdated]);
 
   const onChangePagination = (pagination) => {
     let query = {
@@ -62,29 +68,37 @@ export default function RoomsPage(props) {
   const columns = useMemo(
     () => [
       {
+        title: 'STT',
+        dataIndex: 'STT',
+        key: '_id',
+        width: 50,
+      },
+      {
         title: 'ID',
         dataIndex: '_id',
         key: '_id',
         width: 220,
       },
       {
-        title: 'Homestay id',
-        dataIndex: 'homestay_id',
-        key: 'homestay_id',
-        width: 220,
-        render: (n, record) => {
-          return <div>{record?.homestay_id?._id}</div>;
-        },
-      },
-      {
         title: 'Tên ',
-        width: 220,
+        width: 200,
         dataIndex: 'name',
         key: 'name',
         sorter: (a, b) =>
           a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
         render: (n, record) => {
-          return <div>{record?.category_id?.name}</div>;
+          const category = record?.category_id;
+          return <div>{category?.name}</div>;
+        },
+      },
+      {
+        title: 'Homestay',
+        dataIndex: 'homestay_id',
+        key: 'homestay_id',
+        width: 200,
+        render: (n, record) => {
+          const homestay = record?.homestay_id;
+          return <div>{homestay?.name}</div>;
         },
       },
       {
@@ -114,43 +128,104 @@ export default function RoomsPage(props) {
           return <div>{record?.category_id?.description}</div>;
         },
       },
-      // {
-      //   title: 'Số lượng hình ảnh',
-      //   dataIndex: 'images',
-      //   key: 'images',
-      //   width: 100,
-      //   render: (n, record) => {
-      //     return <div>{record?.category_id?.images ?? 0}</div>;
-      //   },
-      // },
-      // {
-      //   title: 'Số bình luận',
-      //   dataIndex: 'comments_count',
-      //   key: 'comments_count',
-      //   width: 100,
-      //   render: (n, record) => {
-      //     return <div>{record?.homestay_id?.comments_count}</div>;
-      //   },
-      // },
-
-      // {
-      //   title: 'Đánh giá',
-      //   dataIndex: 'rate',
-      //   key: 'rate',
-      //   width: 100,
-      //   render: (n, record) => {
-      //     return <div>{record?.homestay_id?.rate}</div>;
-      //   },
-      // },
-      // {
-      //   title: 'Lượt xem',
-      //   dataIndex: 'view',
-      //   key: 'view',
-      //   width: 100,
-      //   render: (n, record) => {
-      //     return <div>{record?.homestay_id?.view}</div>;
-      //   },
-      // },
+      {
+        title: 'Ảnh đại diện',
+        dataIndex: 'avatar',
+        key: 'avatar',
+        width: 250,
+        render: (n, record) => {
+          const category = record?.category_id;
+          return (
+            <div>
+              {(category?.avatar || category?.images?.[0]) && (
+                <Image
+                  style={{
+                    maxWidth: '235px',
+                    maxHeight: '150px',
+                    width: '235px',
+                    height: '150px',
+                    objectFit: 'cover',
+                  }}
+                  preview={{ visible: false, mask: null }}
+                  src={category?.avatar || category?.images?.[0]}
+                  alt="image preview"
+                />
+              )}
+            </div>
+          );
+        },
+      },
+      {
+        title: 'Bộ sưu tập ảnh',
+        dataIndex: 'images',
+        key: 'gallery',
+        width: 250,
+        render: (n, record) => {
+          const category = record?.category_id;
+          const visiblePreviewImageGallery = () => {
+            if (category?.images?.length > 1) {
+              setImageGallery(category.images);
+              setVisiblePreviewGroup(true);
+            }
+          };
+          return (
+            <Fragment>
+              {category?.images?.length ? (
+                <div
+                  style={{
+                    position: 'relative',
+                    cursor: 'pointer',
+                  }}
+                  onClick={visiblePreviewImageGallery}
+                >
+                  <Image
+                    style={{
+                      filter: 'brightness(80%)',
+                      maxWidth: '235px',
+                      maxHeight: '150px',
+                      width: '235px',
+                      height: '150px',
+                      objectFit: 'cover',
+                    }}
+                    preview={{ visible: false }}
+                    src={category?.images?.[0]}
+                    alt="image preview"
+                  />
+                  {category?.images?.length > 1 && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 10,
+                        background: 'rgba(0,0,0,0.3)',
+                      }}
+                    >
+                      <AiOutlinePlus fontSize="35px" color="white" />
+                      <span
+                        style={{
+                          fontSize: '30px',
+                          color: 'white',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {category?.images?.length}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                ''
+              )}
+            </Fragment>
+          );
+        },
+      },
       {
         title: 'Ngày tạo',
         dataIndex: 'createdAt',
@@ -170,40 +245,65 @@ export default function RoomsPage(props) {
         },
       },
 
-      // {
-      //   title: 'Trạng thái',
-      //   dataIndex: 'status',
-      //   key: 'status',
-      //   width: 150,
-      //   render: (n, record) => {
-      //     return (
-      //       <Switch
-      //         style={{ opacity: 1 }}
-      //         defaultChecked
-      //         checked={record?.status}
-      //         disabled={true}
-      //       />
-      //     );
-      //   },
-      // },
       {
-        title: 'Thao tác',
-        key: 'operation',
+        title: 'Trạng thái',
+        dataIndex: 'status',
+        key: 'status',
         fixed: 'right',
-        width: 100,
-        render: (r) => (
-          <ActionTable
-            id={r._id}
-            dataDetail={rooms}
-            funcDelete={deleteRoom}
-            showActionEdit={false}
-            showActionDelete={false}
-          />
-        ),
+        width: 120,
+        render: (n, record) => {
+          return (
+            <Popconfirm
+              title={
+                record.status
+                  ? 'Bạn muốn dừng hoạt động của phòng này không?'
+                  : 'Bạn muốn mở lại hoạt động của phòng này?'
+              }
+              onConfirm={() =>
+                dispatch(
+                  updateRoom({
+                    id: record?._id,
+                    room: {
+                      status: !record?.status,
+                      category_id: record?.category_id?._id,
+                    },
+                  })
+                )
+              }
+              okText="Đồng ý"
+              cancelText="Không"
+            >
+              <Switch
+                style={{ opacity: 1 }}
+                checked={record.status}
+                // disabled={true}
+              />
+            </Popconfirm>
+          );
+        },
       },
+      // {
+      //   title: 'Thao tác',
+      //   key: 'operation',
+      //   fixed: 'right',
+      //   width: 100,
+      //   render: (r) => (
+      //     <ActionTable
+      //       id={r._id}
+      //       dataDetail={rooms}
+      //       funcDelete={deleteRoom}
+      //       showActionEdit={false}
+      //       showActionDelete={false}
+      //     />
+      //   ),
+      // },
     ],
     [rooms]
   );
+
+  // visiblePreviewGroup
+  const [visiblePreviewGroup, setVisiblePreviewGroup] = useState(false);
+  const [imageGallery, setImageGallery] = useState([]);
 
   return (
     <div style={{ backgroundColor: '#fff' }}>
@@ -220,9 +320,49 @@ export default function RoomsPage(props) {
           defaultPageSize: Number(querySearch?.limit) || 10,
         }}
         // expandable={expandable}
-        title={() => <CustomTitleTable title="Danh sách phòng" />}
+        title={() => (
+          <CustomTitleTable
+            hideAdd={true}
+            title={
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  onClick={() => history.goBack()}
+                  type="primary"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginRight: '20px',
+                  }}
+                >
+                  <IoChevronBackCircle
+                    style={{ cursor: 'pointer', marginRight: '5px' }}
+                    fontSize={20}
+                  />
+                  Quay lại
+                </Button>
+
+                <span style={{ display: 'flex', alignItems: 'center' }}>
+                  Danh sách phòng
+                </span>
+              </div>
+            }
+          />
+        )}
         // footer={() => <CustomFooterTable title="Here is footer" />}
       />
+
+      <div style={{ display: 'none' }}>
+        <Image.PreviewGroup
+          preview={{
+            visible: visiblePreviewGroup,
+            onVisibleChange: (vis) => setVisiblePreviewGroup(vis),
+          }}
+        >
+          {imageGallery?.map((image, index) => (
+            <Image key={index} src={image} alt={`preview ${index}`} />
+          ))}
+        </Image.PreviewGroup>
+      </div>
     </div>
   );
 }

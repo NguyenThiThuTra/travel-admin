@@ -24,22 +24,22 @@ export function AdminMenu() {
       >
         <SubMenu key="sub1" icon={<AppstoreOutlined />} title="Danh mục">
           <Menu.Item key="homestays">
-            <Link to={`${match.path}/homestays`}>Homestays </Link>
+            <Link to={`${match.url}/homestays`}>Homestays </Link>
           </Menu.Item>
           <Fragment>
             <Menu.Item key="users">
-              <Link to={`${match.path}/users`}>Users </Link>
+              <Link to={`${match.url}/users`}>Users </Link>
             </Menu.Item>
           </Fragment>
 
           {/* <Menu.Item key="rooms">
-            <Link to={`${match.path}/rooms`}>Rooms </Link>
+            <Link to={`${match.url}/rooms`}>Rooms </Link>
           </Menu.Item> */}
           <Menu.Item key="orders">
-            <Link to={`${match.path}/orders`}>Booking </Link>
+            <Link to={`${match.url}/orders`}>Booking </Link>
           </Menu.Item>
           <Menu.Item key="category">
-            <Link to={`${match.path}/category`}>Rooms </Link>
+            <Link to={`${match.url}/category`}>Rooms </Link>
           </Menu.Item>
         </SubMenu>
       </Menu>

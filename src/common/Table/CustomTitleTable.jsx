@@ -9,8 +9,9 @@ export default function CustomTitleTable({ hideAdd, title }) {
     <div style={{ display: 'flex', alignItems: 'center' }}>
       {!hideAdd && (
         <Button
-          onClick={() => history.push(`${match.path}/add`)}
+          onClick={() => history.push(`${match.url}/add`)}
           style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}
+          type="primary"
         >
           <AiOutlinePlus />
           Thêm mới

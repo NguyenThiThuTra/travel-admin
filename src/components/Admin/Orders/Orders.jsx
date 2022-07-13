@@ -89,7 +89,7 @@ export default function OrdersPage(props) {
       page: pagination.current,
       limit: pagination.pageSize,
     };
-    history.push(`${match.path}?${queryString.stringify(query)}`);
+    history.push(`${match.url}?${queryString.stringify(query)}`);
   };
   const handleChangeStatus = async (status, record) => {
     // update status !rejected
@@ -302,7 +302,7 @@ export default function OrdersPage(props) {
           defaultCurrent: Number(querySearch?.page) || 1,
           defaultPageSize: Number(querySearch?.limit) || 10,
         }}
-        expandable={expandable}
+        // expandable={expandable}
         title={() => (
           <CustomTitleTable hideAdd={true} title="Danh sách order" />
         )}

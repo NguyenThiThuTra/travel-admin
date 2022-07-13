@@ -46,5 +46,9 @@ const roomApi = {
     const url = `/category/${payload.id}`;
     return axiosClient.patch(url, payload.category);
   },
+  handleActiveCategory(payload) {
+    const url = `/category/${payload.id}/active`;
+    return axiosClient.patch(url, payload.category);
+  },
 };
 export default roomApi;

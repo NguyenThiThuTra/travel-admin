@@ -41,7 +41,7 @@ export const addUser = createAsyncThunk(
       return response;
     } catch (error) {
       dispatch(setLoadingApp(false));
-      message.success('Thêm thất bại');
+      message.error('Thêm thất bại');
       return rejectWithValue(error?.response.data);
     }
   }
@@ -57,7 +57,7 @@ export const updateUser = createAsyncThunk(
       return response;
     } catch (error) {
       dispatch(setLoadingApp(false));
-      message.success('Cập nhật thất bại');
+      message.error('Cập nhật thất bại');
       return rejectWithValue(error?.response.data);
     }
   }

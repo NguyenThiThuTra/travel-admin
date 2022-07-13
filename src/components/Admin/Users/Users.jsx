@@ -33,7 +33,7 @@ export default function UsersPage(props) {
       page: pagination.current,
       limit: pagination.pageSize,
     };
-    history.push(`${match.path}?${queryString.stringify(query)}`);
+    history.push(`${match.url}?${queryString.stringify(query)}`);
   };
   const columns = useMemo(
     () => [

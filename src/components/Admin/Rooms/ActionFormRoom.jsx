@@ -17,6 +17,7 @@ import { formItemLayout, tailFormItemLayout } from 'constants/FormLayoutAnt';
 import { PERMISSIONS } from 'constants/permissions';
 import { ROOM_TYPES } from 'constants/room';
 import { RouteConstant } from 'constants/RouteConstant';
+import { getHomestay } from 'features/Homestay/HomestaySlice';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -36,8 +37,8 @@ const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
 export default function ActionFormRoom() {
-  let { action, id } = useParams();
-
+  let { action, id, homestay_id } = useParams();
+  console.log({ homestay_id });
   const history = useHistory();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -95,13 +96,21 @@ export default function ActionFormRoom() {
   useEffect(() => {
     async function defaultFormUser() {
       if (action === 'add') {
-        reset({
-          user_id: currentUser?.data?._id,
-        });
+        let resetFormFields = {};
+        if (homestay_id) {
+          const homestay = await dispatch(getHomestay(homestay_id)).unwrap();
+          const user_id = homestay?.data?.user_id;
+          resetFormFields = {
+            ...resetFormFields,
+            homestay_id,
+            user_id,
+          };
+        }
+        reset(resetFormFields);
       }
     }
     defaultFormUser();
-  }, [currentUser]);
+  }, [currentUser, homestay_id]);
 
   useEffect(() => {
     if (!id) return;
@@ -262,7 +271,7 @@ export default function ActionFormRoom() {
               required: true,
             }}
             render={({ field }) => {
-              return <Input {...field} />;
+              return <Input disabled={!!homestay_id} {...field} />;
             }}
           />
           {errors?.homestay_id && <ErrorMessage />}
@@ -281,7 +290,7 @@ export default function ActionFormRoom() {
               required: true,
             }}
             render={({ field }) => {
-              return <Input {...field} />;
+              return <Input disabled={!!homestay_id} {...field} />;
             }}
           />
           {errors?.homestay_id && <ErrorMessage />}

@@ -118,23 +118,7 @@ export default function ActionFormHomestay() {
     resolver: yupResolver(validationSchema),
   });
   console.log({ errors });
-  useEffect(() => {
-    async function setInitialValues() {
-      if (currentUser?.data?._id) {
-        try {
-          reset({
-            user_id: currentUser?.data?._id,
-          });
-        } catch (rejectedValueOrSerializedError) {
-          // handle error here
-          console.error({ rejectedValueOrSerializedError });
-        }
-      }
-    }
 
-    setInitialValues();
-    /* eslint-disable */
-  }, []);
   const [url_avatar, set_url_avatar] = useState('');
   const [imageGallery, setImageGallery] = useState();
   useEffect(() => {
@@ -196,9 +180,7 @@ export default function ActionFormHomestay() {
           })
         ).unwrap();
       }
-      reset({
-        user_id: currentUser?.data?._id,
-      });
+
       // if (role === PERMISSIONS.user) {
       //   history.push('/my-homestay/homestays');
       // }
@@ -289,36 +271,33 @@ export default function ActionFormHomestay() {
             <Input defaultValue={dataDetail?._id} disabled />
           </Form.Item>
         )}
-        {currentUser?.data?._id && (
-          <Form.Item
-            label={<LabelRequired title="ID người dùng" />}
-            className={
-              errors?.user_id &&
-              'ant-form-item-with-help ant-form-item-has-error'
-            }
-          >
-            <Controller
-              name="user_id"
-              control={control}
-              rules={{
-                required: true,
-              }}
-              defaultValue={currentUser?.data?._id}
-              render={({ field }) => {
-                return (
-                  <Input
-                    {...field}
-                    disabled={
-                      action !== 'add' ||
-                      currentUser?.data?.roles === PERMISSIONS.user
-                    }
-                  />
-                );
-              }}
-            />
-            {errors?.user_id && <ErrorMessage />}
-          </Form.Item>
-        )}
+
+        <Form.Item
+          label={<LabelRequired title="ID người dùng" />}
+          className={
+            errors?.user_id && 'ant-form-item-with-help ant-form-item-has-error'
+          }
+        >
+          <Controller
+            name="user_id"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => {
+              return (
+                <Input
+                  {...field}
+                  disabled={
+                    action !== 'add' ||
+                    currentUser?.data?.roles === PERMISSIONS.user
+                  }
+                />
+              );
+            }}
+          />
+          {errors?.user_id && <ErrorMessage />}
+        </Form.Item>
 
         <Form.Item
           label={<LabelRequired title="Tên" />}

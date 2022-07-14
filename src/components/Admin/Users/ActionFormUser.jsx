@@ -180,7 +180,7 @@ export default function ActionFormUser() {
             },
           ]}
         >
-          <Input disabled={action !== 'add'} />
+          <Input autoComplete="off" disabled={action !== 'add'} />
         </Form.Item>
         {action === 'add' && (
           <Fragment>
@@ -195,7 +195,7 @@ export default function ActionFormUser() {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input.Password autoComplete="off" />
             </Form.Item>
 
             <Form.Item

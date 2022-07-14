@@ -20,12 +20,18 @@ import queryString from 'query-string';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { AiFillEye, AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import {
+  useHistory,
+  useLocation,
+  useParams,
+  useRouteMatch,
+} from 'react-router-dom';
 const expandable = {
   expandedRowRender: (record) => <p>description</p>,
 };
 
 export default function AdminCategoryPage(props) {
+  const { homestay_id } = useParams();
   const history = useHistory();
   const match = useRouteMatch();
   const location = useLocation();
@@ -41,9 +47,18 @@ export default function AdminCategoryPage(props) {
   useEffect(() => {
     const role = currentUser?.data?.roles;
     if (role) {
-      const payload = {
+      let payload = {
         ...querySearch,
       };
+
+      if (homestay_id) {
+        payload = {
+          ...payload,
+          filters: {
+            homestay_id,
+          },
+        };
+      }
       if (role === PERMISSIONS.admin) {
         return dispatch(fetchAllCategory(payload));
       }
@@ -370,7 +385,12 @@ export default function AdminCategoryPage(props) {
             defaultPageSize: Number(querySearch?.limit) || 10,
           }}
           // expandable={expandable}
-          title={() => <CustomTitleTable title="Danh sách loại phòng" />}
+          title={() => (
+            <CustomTitleTable
+              showButtonBack={!!homestay_id}
+              title="Danh sách loại phòng"
+            />
+          )}
           // footer={() => <CustomFooterTable title="Here is footer" />}
         />
       </div>

@@ -323,28 +323,11 @@ export default function RoomsPage(props) {
         title={() => (
           <CustomTitleTable
             hideAdd={true}
+            showButtonBack
             title={
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button
-                  onClick={() => history.goBack()}
-                  type="primary"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginRight: '20px',
-                  }}
-                >
-                  <IoChevronBackCircle
-                    style={{ cursor: 'pointer', marginRight: '5px' }}
-                    fontSize={20}
-                  />
-                  Quay lại
-                </Button>
-
-                <span style={{ display: 'flex', alignItems: 'center' }}>
-                  Danh sách phòng
-                </span>
-              </div>
+              <span style={{ display: 'flex', alignItems: 'center' }}>
+                Danh sách phòng
+              </span>
             }
           />
         )}

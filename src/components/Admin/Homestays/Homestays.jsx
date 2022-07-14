@@ -66,16 +66,16 @@ export default function AdminHomestaysPage(props) {
   const columns = useMemo(
     () => [
       {
-        title: 'Tên chủ homestay',
+        title: 'ID người dùng',
         dataIndex: 'user_id',
         key: 'user_id',
         width: 220,
         sorter: (a, b) =>
-          a.user_id.name
+          a.user_id._id
             .toLowerCase()
-            .localeCompare(b.user_id.name.toLowerCase()),
+            .localeCompare(b.user_id._id.toLowerCase()),
         render: (user) => {
-          return <div>{user?.name}</div>;
+          return <div>{user?._id}</div>;
         },
       },
       {

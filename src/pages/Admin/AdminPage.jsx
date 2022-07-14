@@ -21,10 +21,15 @@ export const MENU_ADMIN_ROUTES = [
   {
     id: 6,
     element: <AdminCategoryPage />,
-    path: 'homestays/detail/:id/categories',
+    path: 'homestays/detail/:homestay_id/categories',
   },
   {
     id: 7,
+    element: <ActionFormRoom />,
+    path: 'homestays/detail/:homestay_id/categories/:action',
+  },
+  {
+    id: 8,
     element: <RoomsPage />,
     path: 'homestays/detail/:homestay_id/categories/detail/:id/rooms',
   },

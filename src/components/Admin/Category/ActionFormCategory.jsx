@@ -174,13 +174,8 @@ export default function ActionFormCategory() {
           })
         ).unwrap();
       }
-      const role = currentUser?.data?.roles;
-      // if (role === PERMISSIONS.user) {
-      //   history.push('/my-homestay/rooms');
-      // }
-      if (role === PERMISSIONS.admin) {
-        history.push(RouteConstant.AdminRoom);
-      }
+
+      history.push(RouteConstant.AdminRoom.path);
     } catch (e) {
       message.error('Error');
     }

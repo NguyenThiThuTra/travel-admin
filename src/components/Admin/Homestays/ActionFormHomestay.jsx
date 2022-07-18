@@ -184,9 +184,8 @@ export default function ActionFormHomestay() {
       // if (role === PERMISSIONS.user) {
       //   history.push('/my-homestay/homestays');
       // }
-      if (role === PERMISSIONS.admin) {
-        history.push(RouteConstant.AdminHomestay);
-      }
+      reset({});
+      history.push(RouteConstant.AdminHomestay.path);
     } catch (error) {
       message.error('Error');
     }

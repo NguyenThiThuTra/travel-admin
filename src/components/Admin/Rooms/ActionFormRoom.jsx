@@ -38,7 +38,6 @@ const { RangePicker } = DatePicker;
 
 export default function ActionFormRoom() {
   let { action, id, homestay_id } = useParams();
-  console.log({ homestay_id });
   const history = useHistory();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -180,13 +179,8 @@ export default function ActionFormRoom() {
           })
         ).unwrap();
       }
-      const role = currentUser?.data?.roles;
-      if (role === PERMISSIONS.user) {
-        history.push('/my-homestay/rooms');
-      }
-      if (role === PERMISSIONS.admin) {
-        history.push(RouteConstant.AdminRoom);
-      }
+
+      history.push(RouteConstant.AdminRoom.path);
     } catch (e) {
       message.error('Error');
     }

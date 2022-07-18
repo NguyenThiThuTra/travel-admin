@@ -18,6 +18,7 @@ import {
 import { getCurrentUser } from '../../../features/Auth/AuthSlice';
 import { objectToFormData } from '../../../helpers/ConvertObjectToFormData';
 import { PERMISSIONS } from 'constants/permissions';
+import { RouteConstant } from 'constants/RouteConstant';
 const { Title } = Typography;
 const { Option } = Select;
 
@@ -28,12 +29,13 @@ export default function ActionFormUser() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.users.loading);
   const currentUser = useSelector((state) => state.auth.currentUser);
+  
   const onFinish = async (values) => {
     const { _id, prefix, ...user } = values;
     if (action === 'add') {
       let formData = objectToFormData(user);
       fileAvatar && formData.append('avatar', fileAvatar);
-      dispatch(addUser(formData));
+      await dispatch(addUser(formData)).unwrap();
     }
     if (action !== 'add' && id) {
       let formData = objectToFormData(user);
@@ -43,13 +45,14 @@ export default function ActionFormUser() {
           id: id,
           user: formData,
         })
-      );
+      ).unwrap();
       // if (currentUser?.data?._id === id) {
       //   await dispatch(getCurrentUser());
       // }
     }
-    // form.resetFields();
-    // history.push('/admin/users');
+    
+    form.resetFields();
+    history.push(RouteConstant.AdminUser.path);
   };
   const [avatar, setAvatar] = useState('');
   React.useEffect(() => {

@@ -30,6 +30,11 @@ export const MENU_ADMIN_ROUTES = [
   },
   {
     id: 8,
+    element: <ActionFormRoom />,
+    path: 'homestays/detail/:homestay_id/categories/:action/:id',
+  },
+  {
+    id: 9,
     element: <RoomsPage />,
     path: 'homestays/detail/:homestay_id/categories/detail/:id/rooms',
   },

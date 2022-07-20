@@ -224,10 +224,7 @@ a {
 .ant-image {
   display: flex;
 }
-.leaflet-container {
-  height: 500px;
-  width: 100%;
-}
+
 .header.none {
   transform: translateY(-11rem);
   background: #fff;

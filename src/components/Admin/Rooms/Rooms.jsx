@@ -31,7 +31,7 @@ const expandable = {
 };
 
 export default function RoomsPage(props) {
-  const { id } = useParams();
+  const { id, homestay_id } = useParams();
   const history = useHistory();
   const match = useRouteMatch();
   const location = useLocation();

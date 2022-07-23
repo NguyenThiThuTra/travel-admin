@@ -180,7 +180,7 @@ export default function ActionFormRoom() {
         ).unwrap();
       }
 
-      history.push(RouteConstant.AdminCategoryPage.path);
+      history.goBack();
     } catch (e) {
       message.error('Error');
     }

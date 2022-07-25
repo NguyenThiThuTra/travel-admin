@@ -47,6 +47,7 @@ export default function OrdersPage(props) {
       if (role === PERMISSIONS.admin) {
         const payload = {
           ...querySearch,
+          sort: '-createdAt',
         };
         filterStatus && (payload.filters = { status: filterStatus });
         return dispatch(getAllOrder(payload));
@@ -241,33 +242,33 @@ export default function OrdersPage(props) {
             </>
           );
         },
-        filters: [
-          {
-            text: ORDER_STATUS.pending.vi,
-            value: ORDER_STATUS.pending.en,
-          },
-          {
-            text: ORDER_STATUS.approved.vi,
-            value: ORDER_STATUS.approved.en,
-          },
-          {
-            text: ORDER_STATUS.rejected.vi,
-            value: ORDER_STATUS.rejected.en,
-          },
-          {
-            text: ORDER_STATUS.canceled.vi,
-            value: ORDER_STATUS.canceled.en,
-          },
-        ],
-        onFilter: (value, record) => {
-          setFilterStatus(value);
-          console.log({ value, record });
-          return record.status.startsWith(value);
-        },
-        filterSearch: true,
+        // filters: [
+        //   {
+        //     text: ORDER_STATUS.pending.vi,
+        //     value: ORDER_STATUS.pending.en,
+        //   },
+        //   {
+        //     text: ORDER_STATUS.approved.vi,
+        //     value: ORDER_STATUS.approved.en,
+        //   },
+        //   {
+        //     text: ORDER_STATUS.rejected.vi,
+        //     value: ORDER_STATUS.rejected.en,
+        //   },
+        //   {
+        //     text: ORDER_STATUS.canceled.vi,
+        //     value: ORDER_STATUS.canceled.en,
+        //   },
+        // ],
+        // onFilter: (value, record) => {
+        //   setFilterStatus(value);
+        //   console.log({ value, record });
+        //   return record.status.startsWith(value);
+        // },
+        // filterSearch: true,
         sorter: (a, b) =>
           ORDER_STATUS_VALUE[a.status] - ORDER_STATUS_VALUE[b.status],
-        defaultSortOrder: 'ascend',
+        // defaultSortOrder: 'ascend',
       },
       {
         title: 'Thao tác',

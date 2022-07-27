@@ -40,7 +40,6 @@ export default function OrdersPage(props) {
   const deleteOrder = useSelector(useDeleteOrderSelector);
 
   const [filterStatus, setFilterStatus] = useState('');
-
   useEffect(() => {
     const getOrderHomestayById = async () => {
       const role = currentUser?.data?.roles;
@@ -49,7 +48,10 @@ export default function OrdersPage(props) {
           ...querySearch,
           sort: '-createdAt',
         };
-        filterStatus && (payload.filters = { status: filterStatus });
+        if (filterStatus?.length > 0) {
+          payload.filters = { status: filterStatus };
+        }
+
         return dispatch(getAllOrder(payload));
       }
 
@@ -83,8 +85,7 @@ export default function OrdersPage(props) {
   }, [location, deleteOrder, currentUser, filterStatus]);
 
   const onChangePagination = (pagination, filters) => {
-    console.log({ filters });
-    // setFilterStatus(filters?.status||[]);
+    setFilterStatus(filters?.status || []);
     let query = {
       ...querySearch,
       page: pagination.current,
@@ -124,6 +125,7 @@ export default function OrdersPage(props) {
       }, 0)
     );
   };
+
   const columns = useMemo(
     () => [
       {
@@ -242,33 +244,28 @@ export default function OrdersPage(props) {
             </>
           );
         },
-        // filters: [
-        //   {
-        //     text: ORDER_STATUS.pending.vi,
-        //     value: ORDER_STATUS.pending.en,
-        //   },
-        //   {
-        //     text: ORDER_STATUS.approved.vi,
-        //     value: ORDER_STATUS.approved.en,
-        //   },
-        //   {
-        //     text: ORDER_STATUS.rejected.vi,
-        //     value: ORDER_STATUS.rejected.en,
-        //   },
-        //   {
-        //     text: ORDER_STATUS.canceled.vi,
-        //     value: ORDER_STATUS.canceled.en,
-        //   },
-        // ],
-        // onFilter: (value, record) => {
-        //   setFilterStatus(value);
-        //   console.log({ value, record });
-        //   return record.status.startsWith(value);
-        // },
-        // filterSearch: true,
+        filters: [
+          {
+            text: ORDER_STATUS.pending.vi,
+            value: ORDER_STATUS.pending.en,
+          },
+          {
+            text: ORDER_STATUS.approved.vi,
+            value: ORDER_STATUS.approved.en,
+          },
+          {
+            text: ORDER_STATUS.rejected.vi,
+            value: ORDER_STATUS.rejected.en,
+          },
+          {
+            text: ORDER_STATUS.canceled.vi,
+            value: ORDER_STATUS.canceled.en,
+          },
+        ],
+        filterMultiple: true,
+        filterSearch: true,
         sorter: (a, b) =>
           ORDER_STATUS_VALUE[a.status] - ORDER_STATUS_VALUE[b.status],
-        // defaultSortOrder: 'ascend',
       },
       {
         title: 'Thao tác',

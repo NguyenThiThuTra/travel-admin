@@ -86,9 +86,11 @@ export default function ActionFormUser() {
   const [fileList, setFileList] = useState([]);
   const onChange = ({ file, fileList }) => {
     setFileList((prev) => fileList);
-    let originFileObj = file.originFileObj;
-    originFileObj.preview = URL.createObjectURL(originFileObj);
-    setFileAvatar((prev) => originFileObj);
+    let originFileObj = file;
+    if (fileList?.length > 0) {
+      originFileObj.preview = URL.createObjectURL(originFileObj);
+      setFileAvatar((prev) => originFileObj);
+    }
   };
   //previewImage
   useEffect(() => {
@@ -314,6 +316,7 @@ export default function ActionFormUser() {
               listType="picture-card"
               onChange={onChange}
               onPreview={onPreview}
+              beforeUpload={() => false}
             >
               {fileList.length < 1 && '+ Upload'}
             </Upload>

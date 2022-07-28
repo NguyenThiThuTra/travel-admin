@@ -53,7 +53,7 @@ const UserProfile = (props) => {
   };
   const onChange = async ({ file, fileList }) => {
     setFileList((prev) => fileList);
-    if (!file.url && !file.preview) {
+    if (fileList?.length > 0 && !file.url && !file.preview) {
       file.preview = await getBase64(file);
     }
     setFileAvatar((prev) => file);

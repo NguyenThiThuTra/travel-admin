@@ -121,20 +121,6 @@ export default function UsersPage(props) {
         key: 'roles',
         width: 120,
       },
-      // {
-      //   title: 'Active',
-      //   dataIndex: 'active',
-      //   key: 'active',
-      //   width: 150,
-      //   render: (n, record) => (
-      //     <Switch
-      //       style={{ opacity: 1 }}
-      //       defaultChecked
-      //       checked={record?.active}
-      //       disabled={true}
-      //     />
-      //   ),
-      // },
       {
         title: 'Thao tác',
         key: 'operation',
@@ -167,9 +153,7 @@ export default function UsersPage(props) {
           defaultCurrent: Number(querySearch?.page) || 1,
           defaultPageSize: Number(querySearch?.limit) || 10,
         }}
-        // expandable={expandable}
         title={() => <CustomTitleTable title="Danh sách người dùng" />}
-        // footer={() => <CustomFooterTable title="Here is footer" />}
       />
     </div>
   );

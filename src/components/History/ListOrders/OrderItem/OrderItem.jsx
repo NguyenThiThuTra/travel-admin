@@ -20,7 +20,6 @@ import './OrderItem.css';
 
 const { Title } = Typography;
 
-//['single', 'double', 'family', 'big family'],
 const TYPE_ROOM = {
   single: 'Phòng đơn',
   double: 'Phòng đôi',

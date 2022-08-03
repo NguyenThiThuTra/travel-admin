@@ -78,10 +78,8 @@ export function CommentList() {
   const [dataComments, setDataComments] = useState([]);
   const dummy = useRef();
   const loadMoreComments = () => {
-    // dummy?.current?.scrollIntoView({ behavior: 'smooth' });
     setPaging((prevState) => ({ ...prevState, page: prevState.page + 1 }));
   };
-  // get all comments Homestay
 
   const isFirstRender = useIsFirstRender();
   useEffect(() => {
@@ -191,16 +189,10 @@ export function CommentList() {
     if (checkOwnerHomestay()) {
       return true;
     }
-    // const limitComment = order?.paging?.total;
-    // const length = comments?.data?.filter(
-    //   (comment) => comment?.user_id?._id === currentUser?.data?._id
-    // ).length;
 
-    // return length >= limitComment;x
     return true;
   };
 
-  //
   const [visiblePreviewGroup, setVisiblePreviewGroup] = useState(true);
   const [idImagePreview, setIdImageReview] = useState(null);
   const handleShowImagePreview = (id) => {
@@ -331,8 +323,6 @@ export function CommentList() {
                                     <Form.Item name="text">
                                       <TextArea
                                         rows={4}
-                                        // onChange={handleChangeReplyComment}
-                                        // value={valueReplyComment}
                                       />
                                     </Form.Item>
                                     <Form.Item>

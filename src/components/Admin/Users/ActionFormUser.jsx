@@ -46,9 +46,6 @@ export default function ActionFormUser() {
           user: formData,
         })
       ).unwrap();
-      // if (currentUser?.data?._id === id) {
-      //   await dispatch(getCurrentUser());
-      // }
     }
     
     form.resetFields();

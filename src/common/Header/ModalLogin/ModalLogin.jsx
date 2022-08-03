@@ -10,8 +10,6 @@ import { useHistory } from 'react-router-dom';
 import { login, signup } from '../../../features/Auth/AuthSlice';
 const { Option } = Select;
 const ModalLogin = (props) => {
-  // const store = useContext(AuthContext);
-  //end context
   const history = useHistory();
   let dispatch = useDispatch();
   const [nameForm, setNameForm] = useState('sign-in');

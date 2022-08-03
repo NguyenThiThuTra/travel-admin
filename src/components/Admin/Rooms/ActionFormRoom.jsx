@@ -118,7 +118,6 @@ export default function ActionFormRoom() {
     async function fetchDataDetail() {
       try {
         const originalPromiseResult = await dispatch(getCategory(id)).unwrap();
-        // console.log({ originalPromiseResult });
         // handle result here
         setDataDetail(originalPromiseResult?.data);
         const {
@@ -329,7 +328,6 @@ export default function ActionFormRoom() {
               }}
               render={({ field: { onChange, value } }) => {
                 const handleOnChange = (val) => {
-                  // const province = JSON.parse(val);
                   onChange(val);
                 };
                 return (
@@ -409,45 +407,6 @@ export default function ActionFormRoom() {
           {errors?.price && <ErrorMessage />}
         </Form.Item>
 
-        {/* <Form.Item
-          label={<LabelRequired title={`Check-in & Check-out Date :`} />}
-          className={
-            errors?.description &&
-            'ant-form-item-with-help ant-form-item-has-error'
-          }
-        >
-          <Controller
-            name="time"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, value } }) => {
-              function onChangeDate(dates, dateStrings) {
-                console.log(dates);
-                onChange(dates);
-                // console.log('From: ', dates[0], ', to: ', dates[1]);
-                // console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
-              }
-              return (
-                <RangePicker
-                  disabledDate={disabledDate}
-                  placeholder={['Check-in date', 'Check-out date']}
-                  className="form-filters__input"
-                  ranges={{
-                    Today: [moment(), moment()],
-                    'This Month': [
-                      moment().startOf('month'),
-                      moment().endOf('month'),
-                    ],
-                  }}
-                  onChange={onChangeDate}
-                />
-              );
-            }}
-          />
-          {errors?.description && <ErrorMessage />}
-        </Form.Item> */}
         <Form.Item
           label={<LabelRequired title="Mô tả" />}
           className={

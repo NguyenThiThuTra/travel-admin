@@ -64,62 +64,9 @@ export default function PopupChat() {
     }
   }, [conversations, receiver]);
 
-  // useEffect(() => {
-  //   if (currentConversation) {
-  //     dispatch(
-  //       setReceiver({
-  //         user_id: currentConversation.members.find(
-  //           (member) => member !== currentUser?.data?._id
-  //         ),
-  //       })
-  //     );
-  //   }
-  // }, [currentConversation]);
-
   const [dataMessages, setDataMessages] = useState([]);
-  const [lastDoc, setLastDoc] = useState();
-  const [loading, setLoading] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(false);
-
-  // const updateState = (collections) => {
-  //   const isCollectionEmpty = collections.size === 0;
-  //   if (!isCollectionEmpty) {
-  //     const messages = collections.docs.map((doc) => ({
-  //       ...doc.data(),
-  //       id: doc.id,
-  //     }));
-  //     const isLastDoc = collections.docs[collections.docs.length - 1];
-
-  //     setDataMessages((prevState) => [...prevState, ...messages]);
-  //     setLastDoc(isLastDoc);
-  //   } else {
-  //     setIsEmpty(true);
-  //   }
-  //   setLoading(false);
-  // };
-  // useEffect(() => {
-  //   if (!currentConversation) return;
-  //   const getMessages = async () => {
-  //     firestore
-  //       .collection('messages')
-  //       .where('conversation_id', '==', currentConversation?.id || null)
-  //       .orderBy('createdAt', 'desc')
-  //       // .limit(15)
-  //       .onSnapshot((collections) => {
-  //         updateState(collections);
-  //       });
-  //   };
-  //   getMessages();
-  // }, [currentConversation]);
-  // console.log({ dataMessages });
+ 
   const messageRef = firestore.collection('messages');
-  // const queryMessage = React.useCallback(() => {
-  //   let q = messageRef
-  //     .where('conversation_id', '==', currentConversation?.id || null)
-  //     .orderBy('createdAt', 'desc');
-  //   // .limit(15);
-  //   return q;
-  // }, [currentConversation, onScroll]);
 
   const queryMessage = messageRef
     .where('conversation_id', '==', currentConversation?.id || null)
@@ -129,7 +76,6 @@ export default function PopupChat() {
     setDataMessages(messages);
   }, [messages]);
 
-  // console.log({ messages, receiver, conversations, currentConversation });
   const [formValue, setFormValue] = useState();
 
   const handleSwitchPopupChat = () => {

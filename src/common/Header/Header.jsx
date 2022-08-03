@@ -46,8 +46,8 @@ const Header = () => {
       history.push('/cart');
     }
   };
-
   //end show info
+
   //modal login
   const visibleModalLogin = useSelector(useVisibleModalLoginSelector);
   const handleToggleModalLogin = () => {
@@ -95,6 +95,7 @@ const Header = () => {
     </Menu>
   );
   //end modal
+  
   //detect scroll
   const { scrollingUp, top, setTop } = useDetectScroll();
   //end detect scroll

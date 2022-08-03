@@ -8,14 +8,14 @@ export function PrivateRoute(props) {
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const currentUser = useSelector(useCurrentUserSelector);
-  // console.log({ isLoggedIn, currentUser });
+
   const checkPermission = useMemo(() => {
     if (isAdmin && currentUser) {
       return currentUser.data.roles === PERMISSIONS.admin;
     }
     return isLoggedIn;
   }, [currentUser]);
-  // console.log({ checkPermission });
+  
   if (!checkPermission) {
     return (
       <Redirect

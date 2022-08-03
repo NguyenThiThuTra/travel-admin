@@ -62,15 +62,7 @@ export default function AdminCategoryPage(props) {
       if (role === PERMISSIONS.admin) {
         return dispatch(fetchAllCategory(payload));
       }
-      // if (role === PERMISSIONS.user) {
-      //   const payload = {
-      //     ...querySearch,
-      //     filters: {
-      //       user_id: currentUser?.data?._id,
-      //     },
-      //   };
-      //   dispatch(fetchAllCategory(payload));
-      // }
+  
     }
     /* eslint-disable */
   }, [location, roomRemoved, currentUser, categoryUpdated]);
@@ -90,21 +82,6 @@ export default function AdminCategoryPage(props) {
 
   const columns = useMemo(
     () => [
-      // {
-      //   title: 'ID',
-      //   dataIndex: '_id',
-      //   key: '_id',
-      //   width: 220,
-      // },
-      // {
-      //   title: 'Homestay id',
-      //   dataIndex: 'homestay_id',
-      //   key: 'homestay_id',
-      //   width: 220,
-      //   render: (n, record) => {
-      //     return <div>{record?.homestay_id}</div>;
-      //   },
-      // },
       {
         title: 'Tên ',
         width: 220,
@@ -258,34 +235,6 @@ export default function AdminCategoryPage(props) {
           return <div>{record?.images?.length}</div>;
         },
       },
-      // {
-      //   title: 'Số bình luận',
-      //   dataIndex: 'comments_count',
-      //   key: 'comments_count',
-      //   width: 100,
-      //   render: (n, record) => {
-      //     return <div>{record?.homestay_id?.comments_count ?? 0}</div>;
-      //   },
-      // },
-
-      // {
-      //   title: 'Đánh giá',
-      //   dataIndex: 'rate',
-      //   key: 'rate',
-      //   width: 100,
-      //   render: (n, record) => {
-      //     return <div>{record?.homestay_id?.rate ?? 0}</div>;
-      //   },
-      // },
-      // {
-      //   title: 'Lượt xem',
-      //   dataIndex: 'view',
-      //   key: 'view',
-      //   width: 100,
-      //   render: (n, record) => {
-      //     return <div>{record?.homestay_id?.view ?? 0}</div>;
-      //   },
-      // },
       {
         title: 'Ngày tạo',
         dataIndex: 'createdAt',
@@ -330,9 +279,7 @@ export default function AdminCategoryPage(props) {
             >
               <Switch
                 style={{ opacity: 1 }}
-                // defaultChecked
                 checked={record.active}
-                // disabled={true}
               />
             </Popconfirm>
           );
@@ -384,14 +331,12 @@ export default function AdminCategoryPage(props) {
             defaultCurrent: Number(querySearch?.page) || 1,
             defaultPageSize: Number(querySearch?.limit) || 10,
           }}
-          // expandable={expandable}
           title={() => (
             <CustomTitleTable
               showButtonBack={!!homestay_id}
               title="Danh sách loại phòng"
             />
           )}
-          // footer={() => <CustomFooterTable title="Here is footer" />}
         />
       </div>
 

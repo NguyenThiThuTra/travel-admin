@@ -39,14 +39,6 @@ export default function AdminHomestaysPage(props) {
     const role = currentUser?.data?.roles;
     if (role) {
       let query = { ...querySearch };
-      // if (role === PERMISSIONS.user) {
-      //   query = {
-      //     ...querySearch,
-      //     filters: {
-      //       user_id: currentUser?.data?._id,
-      //     },
-      //   };
-      // }
       dispatch(fetchAllHomestays(query));
     }
     /* eslint-disable */
@@ -238,18 +230,6 @@ export default function AdminHomestaysPage(props) {
         key: 'comments_count',
         width: 100,
       },
-      // {
-      //   title: 'Đánh giá',
-      //   dataIndex: 'rate',
-      //   key: 'rate',
-      //   width: 100,
-      // },
-      // {
-      //   title: 'Lượt xem',
-      //   dataIndex: 'view',
-      //   key: 'view',
-      //   width: 100,
-      // },
       {
         title: 'Ngày tạo',
         dataIndex: 'createdAt',
@@ -294,9 +274,7 @@ export default function AdminHomestaysPage(props) {
             >
               <Switch
                 style={{ opacity: 1 }}
-                // defaultChecked
                 checked={record.active}
-                // disabled={true}
               />
             </Popconfirm>
           );
@@ -347,7 +325,6 @@ export default function AdminHomestaysPage(props) {
             defaultCurrent: Number(querySearch?.page) || 1,
             defaultPageSize: Number(querySearch?.limit) || 10,
           }}
-          // expandable={expandable}
           title={() => (
             <CustomTitleTable
               hideAdd={
@@ -357,7 +334,6 @@ export default function AdminHomestaysPage(props) {
               title="Danh sách homestay"
             />
           )}
-          // footer={() => <CustomFooterTable title="Here is footer" />}
         />
       </div>
 

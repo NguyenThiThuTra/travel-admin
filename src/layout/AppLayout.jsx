@@ -12,7 +12,6 @@ export default function AppLayout({ children }) {
   const location = useLocation();
 
   const loadingApp = useSelector(useLoadingAppSelector);
-  // const currentUser = useSelector(useCurrentUserSelector);
 
   return (
     <React.StrictMode>

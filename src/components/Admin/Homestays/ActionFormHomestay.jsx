@@ -183,9 +183,6 @@ export default function ActionFormHomestay() {
         ).unwrap();
       }
 
-      // if (role === PERMISSIONS.user) {
-      //   history.push('/my-homestay/homestays');
-      // }
       reset({});
       history.push(RouteConstant.AdminHomestay.path);
     } catch (error) {

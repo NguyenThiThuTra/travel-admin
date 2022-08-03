@@ -38,17 +38,8 @@ export const MENU_ADMIN_ROUTES = [
     element: <RoomsPage />,
     path: 'homestays/detail/:homestay_id/categories/detail/:id/rooms',
   },
-  // { id: 9, element: <RoomsPage />, path: 'rooms' },
-  // { id: 10, element: <ActionFormRoom />, path: 'rooms/:action' },
-  // {
-  //   id: 11,
-  //   element: <ActionFormRoom />,
-  //   path: 'rooms/:action/:id',
-  // },
-  // orders
   { id: 12, element: <OrdersPage />, path: 'orders' },
   { id: 13, element: <OrderDetail />, path: 'orders/:id' },
-  // category
   { id: 14, element: <AdminCategoryPage />, path: 'category' },
   { id: 15, element: <ActionFormRoom />, path: 'category/:action' },
   {

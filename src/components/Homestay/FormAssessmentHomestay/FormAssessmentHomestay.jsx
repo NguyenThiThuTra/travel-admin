@@ -145,7 +145,6 @@ export default function FormAssessmentHomestay({
 
   const handleChangeImageReview = ({ fileList: newFileList }) => {
     setFileListImageReview(newFileList);
-    // set value images antd
   };
 
   const uploadButtonImageReview = (
@@ -169,28 +168,6 @@ export default function FormAssessmentHomestay({
       onCancel={handleCancel}
       width={800}
       footer={null}
-      // footer={[
-      //   <Button key="back" onClick={handleCancel}>
-      //     Return
-      //   </Button>,
-      //   <Button
-      //     key="submit"
-      //     type="primary"
-      //     loading={loading}
-      //     onClick={handleOk}
-      //   >
-      //     Submit
-      //   </Button>,
-      //   <Button
-      //     key="link"
-      //     href="https://google.com"
-      //     type="primary"
-      //     loading={loading}
-      //     onClick={handleOk}
-      //   >
-      //     Search on Google
-      //   </Button>,
-      // ]}
     >
       <Form
         name="dynamic_form_nest_item"

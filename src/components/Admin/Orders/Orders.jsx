@@ -55,29 +55,6 @@ export default function OrdersPage(props) {
         return dispatch(getAllOrder(payload));
       }
 
-      // if (role === PERMISSIONS.user) {
-      //   const queryAllHomestay = {
-      //     ...querySearch,
-      //     filters: {
-      //       user_id: currentUser?.data?._id,
-      //     },
-      //   };
-      //   const resultAction = await dispatch(
-      //     fetchAllHomestays(queryAllHomestay)
-      //   ).unwrap();
-      //   const homestay_id = resultAction?.data?.[0]?._id;
-
-      //   if (homestay_id) {
-      //     const payload = {
-      //       ...querySearch,
-      //       filters: {
-      //         homestay_id: homestay_id,
-      //       },
-      //     };
-      //     dispatch(getAllOrder(payload));
-      //     return;
-      //   }
-      // }
     };
     getOrderHomestayById();
 
@@ -208,39 +185,6 @@ export default function OrdersPage(props) {
               >
                 {ORDER_STATUS?.[record.status].vi}
               </Tag>
-
-              {/* <Select
-                defaultValue={record.status}
-                // disabled={record.status !== ORDER_STATUS.pending.en}
-                style={{ width: 120 }}
-                onSelect={(status) => handleChangeStatus(status, record)}
-              >
-                <Option value="pending">
-                  
-                  <Tag
-                    style={{ borderRadius: '10px' }}
-                    color={ORDER_STATUS_COLOR?.pending}
-                  >
-                    {ORDER_STATUS?.pending.vi}
-                  </Tag>
-                </Option>
-                <Option value="approved">
-                  <Tag
-                    style={{ borderRadius: '10px' }}
-                    color={ORDER_STATUS_COLOR?.approved}
-                  >
-                    {ORDER_STATUS?.approved.vi}
-                  </Tag>
-                </Option>
-                <Option value="rejected">
-                  <Tag
-                    style={{ borderRadius: '10px' }}
-                    color={ORDER_STATUS_COLOR?.rejected}
-                  >
-                    {ORDER_STATUS?.rejected.vi}
-                  </Tag>
-                </Option>
-              </Select> */}
             </>
           );
         },
@@ -300,7 +244,6 @@ export default function OrdersPage(props) {
           defaultCurrent: Number(querySearch?.page) || 1,
           defaultPageSize: Number(querySearch?.limit) || 10,
         }}
-        // expandable={expandable}
         title={() => (
           <CustomTitleTable hideAdd={true} title="Danh sách order" />
         )}

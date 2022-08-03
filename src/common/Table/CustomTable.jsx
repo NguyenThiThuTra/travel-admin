@@ -7,7 +7,6 @@ export default function CustomTable(props) {
     pagination: { position: 'bottom' },
     size: 'small',
     showHeader: true,
-    // rowSelection: {},
     scroll: true,
     tableLayout: undefined,
     top: 'none',

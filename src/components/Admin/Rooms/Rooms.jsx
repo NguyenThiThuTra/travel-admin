@@ -276,27 +276,11 @@ export default function RoomsPage(props) {
               <Switch
                 style={{ opacity: 1 }}
                 checked={record.status}
-                // disabled={true}
               />
             </Popconfirm>
           );
         },
       },
-      // {
-      //   title: 'Thao tác',
-      //   key: 'operation',
-      //   fixed: 'right',
-      //   width: 100,
-      //   render: (r) => (
-      //     <ActionTable
-      //       id={r._id}
-      //       dataDetail={rooms}
-      //       funcDelete={deleteRoom}
-      //       showActionEdit={false}
-      //       showActionDelete={false}
-      //     />
-      //   ),
-      // },
     ],
     [rooms]
   );
@@ -319,7 +303,6 @@ export default function RoomsPage(props) {
           defaultCurrent: Number(querySearch?.page) || 1,
           defaultPageSize: Number(querySearch?.limit) || 10,
         }}
-        // expandable={expandable}
         title={() => (
           <CustomTitleTable
             hideAdd={true}
@@ -331,7 +314,6 @@ export default function RoomsPage(props) {
             }
           />
         )}
-        // footer={() => <CustomFooterTable title="Here is footer" />}
       />
 
       <div style={{ display: 'none' }}>

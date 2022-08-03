@@ -21,13 +21,6 @@ const useFirestoreLoadMore = (queryFn, messageRef) => {
       setData([...data, ...qData.docs]);
     }
   }, [qData]);
-  // console.log({
-  //   mdxx,
-  //   data: data.map((doc) => ({
-  //     ...doc.data(),
-  //     id: doc.id,
-  //   })),
-  // });
 
   const more = useCallback(() => {
     setQuery(queryFn().startAfter(last));

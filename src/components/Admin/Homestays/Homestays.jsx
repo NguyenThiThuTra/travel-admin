@@ -38,7 +38,7 @@ export default function AdminHomestaysPage(props) {
   React.useEffect(() => {
     const role = currentUser?.data?.roles;
     if (role) {
-      let query = { ...querySearch };
+      let query = { ...querySearch, sort: "-createdAt" };
       dispatch(fetchAllHomestays(query));
     }
     /* eslint-disable */

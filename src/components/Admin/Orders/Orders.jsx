@@ -116,9 +116,9 @@ export default function OrdersPage(props) {
         width: 100,
         dataIndex: 'totalSelectedRooms',
         key: 'totalSelectedRooms',
-        sorter: (a, b) => a.totalSelectedRooms - b.totalSelectedRooms,
+        sorter: (a, b) => a?.room_ids?.length - b?.room_ids?.length,
         render: (text, record) => {
-          return <span>{`${record?.order?.length} phòng`}</span>;
+          return <span>{`${record?.room_ids?.length} phòng`}</span>;
         },
       },
       {

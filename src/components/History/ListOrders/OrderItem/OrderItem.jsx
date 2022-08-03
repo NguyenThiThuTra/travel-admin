@@ -154,6 +154,7 @@ export function OrderItem({ orderStatus, seller, data, totalPriceOrders }) {
               <img
                 className="order-item__img"
                 src={
+                  category?.avatar ||
                   category?.images?.[0] ||
                   'https://chieutour.com.vn/upload/images/tour-du-lich-tu-tphcm-di-da-nang.jpg'
                 }

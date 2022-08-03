@@ -24,7 +24,10 @@ export default function UsersPage(props) {
   const loading = useSelector((state) => state.users.loading);
   const userRemoved = useSelector((state) => state.users.userRemoved);
   React.useEffect(() => {
-    dispatch(fetchAllUsers(querySearch));
+    dispatch(fetchAllUsers({
+      ...querySearch,
+      sort: "-createdAt"
+    }));
     /* eslint-disable */
   }, [location, userRemoved]);
   const onChangePagination = (pagination) => {

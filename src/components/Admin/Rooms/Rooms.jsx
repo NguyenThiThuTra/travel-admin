@@ -227,25 +227,6 @@ export default function RoomsPage(props) {
         },
       },
       {
-        title: 'Ngày tạo',
-        dataIndex: 'createdAt',
-        key: 'createdAt',
-        width: 150,
-        render: (time) => {
-          return <div>{moment(time).format('DD/MM/YYYY')} </div>;
-        },
-      },
-      {
-        title: 'Ngày cập nhật',
-        dataIndex: 'updatedAt',
-        key: 'updatedAt',
-        width: 150,
-        render: (time) => {
-          return <div>{moment(time).format('DD/MM/YYYY')} </div>;
-        },
-      },
-
-      {
         title: 'Trạng thái',
         dataIndex: 'status',
         key: 'status',

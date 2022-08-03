@@ -48,7 +48,7 @@ export default function AdminCategoryPage(props) {
     const role = currentUser?.data?.roles;
     if (role) {
       let payload = {
-        ...querySearch,
+        ...querySearch, sort: "-createdAt"
       };
 
       if (homestay_id) {
@@ -62,7 +62,7 @@ export default function AdminCategoryPage(props) {
       if (role === PERMISSIONS.admin) {
         return dispatch(fetchAllCategory(payload));
       }
-  
+
     }
     /* eslint-disable */
   }, [location, roomRemoved, currentUser, categoryUpdated]);

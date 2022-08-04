@@ -29,7 +29,7 @@ export default function ActionFormUser() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.users.loading);
   const currentUser = useSelector((state) => state.auth.currentUser);
-  
+
   const onFinish = async (values) => {
     const { _id, prefix, ...user } = values;
     if (action === 'add') {
@@ -47,7 +47,7 @@ export default function ActionFormUser() {
         })
       ).unwrap();
     }
-    
+
     form.resetFields();
     history.push(RouteConstant.AdminUser.path);
   };

@@ -186,7 +186,6 @@ export default function ActionFormHomestay() {
       reset({});
       history.push(RouteConstant.AdminHomestay.path);
     } catch (error) {
-      message.error('Error');
     }
   };
 

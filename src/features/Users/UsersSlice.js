@@ -57,7 +57,9 @@ export const updateUser = createAsyncThunk(
       return response;
     } catch (error) {
       dispatch(setLoadingApp(false));
-      message.error('Cập nhật thất bại');
+      message.error(
+        error?.response?.data?.error?.message || 'Cập nhật thất bại'
+      );
       return rejectWithValue(error?.response.data);
     }
   }

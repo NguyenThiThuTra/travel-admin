@@ -55,7 +55,7 @@ export const addHomestay = createAsyncThunk(
       return response;
     } catch (error) {
       dispatch(setLoadingApp(false));
-      message.error('Thêm thất bại');
+      message.error(error?.response?.data?.message || 'Thêm thất bại');
       return rejectWithValue(error?.response.data);
     }
   }

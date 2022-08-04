@@ -57,9 +57,21 @@ export const updateUser = createAsyncThunk(
       return response;
     } catch (error) {
       dispatch(setLoadingApp(false));
-      message.error(
-        error?.response?.data?.error?.message || 'Cập nhật thất bại'
-      );
+      
+      const errors = error?.response?.data?.error.errors || {};
+      if (Object.values(errors).length > 0) {
+        const error = Object.values(errors).find(
+          (value) => value.path === 'phone_number'
+        );
+        if (error) {
+          message.error('Cập nhật thất bại do số điện thoại không hợp lệ');
+        } else {
+          message.error('Cập nhật thất bại');
+        }
+      } else {
+        message.error('Cập nhật thất bại');
+      }
+
       return rejectWithValue(error?.response.data);
     }
   }

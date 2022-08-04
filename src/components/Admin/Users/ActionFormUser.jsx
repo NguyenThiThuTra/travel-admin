@@ -65,7 +65,6 @@ export default function ActionFormUser() {
             name: originalPromiseResult?.data.name,
             phone_number: originalPromiseResult?.data.phone_number,
             gender: originalPromiseResult?.data.gender,
-            roles: originalPromiseResult.data.roles,
           });
           setAvatar(originalPromiseResult?.data?.avatar);
         } catch (rejectedValueOrSerializedError) {
@@ -281,23 +280,7 @@ export default function ActionFormUser() {
             <Option value="other">Khác</Option>
           </Select>
         </Form.Item>
-        {currentUser?.data?.roles === PERMISSIONS.admin && (
-          <Form.Item
-            name="roles"
-            label="Quyền của tài khoản"
-            rules={[
-              {
-                required: false,
-                message: 'Chọn quyền của tài khoản!',
-              },
-            ]}
-          >
-            <Select placeholder="Chọn quyền của tài khoản">
-              <Option value={PERMISSIONS.user}>User</Option>
-              <Option value={PERMISSIONS.admin}>Admin</Option>
-            </Select>
-          </Form.Item>
-        )}
+
         <Form.Item
           label="Ảnh đại diện"
           rules={[

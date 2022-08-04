@@ -40,30 +40,11 @@ export default function PopupChat() {
     currentUser?.data?._id
   );
 
-  // const [conversations, loadingConversations] = useCollectionData(
-  //   queryConversations,
-  //   { idField: 'id' }
-  // );
-  const [conversations, setConversations] = useState([]);
+  const [conversations, loadingConversations] = useCollectionData(
+    queryConversations,
+    { idField: 'id' }
+  );
 
-  const getAllConversations = async () => {
-    const querySnapshot = await queryConversations.get();
-    const result = querySnapshot.docs.map((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      const conversation = {
-        ...doc.data(),
-        doc_id: doc.id,
-      };
-      return conversation;
-    });
-    setConversations(result);
-  };
-  useEffect(() => {
-    // if (!sender) {
-    //   return;
-    // }
-    getAllConversations();
-  }, [dataMessages]);
   const [currentConversation, setCurrentConversation] = useState(null);
 
   const onChangeCurrentConversation = (conversation_id) => {

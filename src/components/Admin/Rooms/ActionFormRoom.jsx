@@ -10,6 +10,9 @@ import {
   Select,
   Typography,
   Upload,
+  Checkbox,
+  Col,
+  Row
 } from 'antd';
 import { ErrorMessage } from 'common/ErrorMessage';
 import { LabelRequired } from 'common/LabelRequired';
@@ -130,6 +133,7 @@ export default function ActionFormRoom() {
           avatar,
           homestay_id,
           user_id,
+          amenities
         } = originalPromiseResult?.data;
         reset({
           user_id,
@@ -141,6 +145,7 @@ export default function ActionFormRoom() {
           description,
           images,
           avatar,
+          amenities
         });
         set_url_avatar(avatar);
         setImageGallery(images);
@@ -189,6 +194,35 @@ export default function ActionFormRoom() {
   function onSearch(val) {
     // console.log('search:', val);
   }
+
+  const amenitiesAndOptions = [
+    { label: 'Điều hòa không khí', value: 'Điều hòa không khí' },
+    { label: 'Phòng tắm riêng trong phòng', value: 'Phòng tắm riêng trong phòng' },
+    { label: 'TV màn hình phẳng', value: 'TV màn hình phẳng' },
+    { label: 'Hệ thống cách âm', value: 'Hệ thống cách âm' },
+    { label: 'Minibar', value: 'Minibar' },
+    { label: 'WiFi miễn phí', value: 'WiFi miễn phí' },
+    { label: 'Tầm nhìn ra khung cảnh', value: 'Tầm nhìn ra khung cảnh' },
+    { label: 'Đồ vệ sinh cá nhân miễn phí ', value: 'Đồ vệ sinh cá nhân miễn phí ' },
+    { label: 'Áo choàng tắm', value: 'Áo choàng tắm' },
+    { label: 'Két an toàn ', value: 'Két an toàn ' },
+    { label: 'Nhà vệ sinh', value: 'Nhà vệ sinh' },
+    { label: 'Bồn tắm', value: 'Bồn tắm' },
+    { label: 'Khăn tắm', value: 'Khăn tắm' },
+    { label: 'Ga trải giường', value: 'Ga trải giường' },
+    { label: 'Bàn làm việc ', value: 'Bàn làm việc ' },
+    { label: 'Khu vực tiếp khách', value: 'Khu vực tiếp khách' },
+    { label: 'TV', value: 'TV' },
+    { label: 'Dép', value: 'Dép' },
+    { label: 'Điện thoại', value: 'Điện thoại' },
+    { label: 'Khăn tắm/Bộ khăn trải giường (có thu phí)', value: 'Khăn tắm/Bộ khăn trải giường (có thu phí)' },
+    { label: 'Máy sấy tóc ', value: 'Máy sấy tóc ' },
+    { label: 'Ấm đun nước điện', value: 'Ấm đun nước điện' },
+    { label: 'Truyền hình cáp', value: 'Truyền hình cáp' },
+    { label: 'Tủ hoặc phòng để quần áo', value: 'Tủ hoặc phòng để quần áo' },
+    { label: 'Nắp che ổ cắm điện an toàn', value: 'Nắp che ổ cắm điện an toàn' },
+  ];
+
   return (
     <div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -432,6 +466,37 @@ export default function ActionFormRoom() {
           />
           {errors?.description && <ErrorMessage />}
         </Form.Item>
+
+        <Form.Item
+          label={<LabelRequired title="Các tiện ích" />}
+          className={
+            errors?.amenities &&
+            'ant-form-item-with-help ant-form-item-has-error'
+          }
+        >
+          <Controller
+            name="amenities"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field }) => {
+              return (
+                <Checkbox.Group style={{ width: '100%' }}  {...field} >
+                  <Row gutter={[8, 8]}>
+
+                    {amenitiesAndOptions.map((option, index) => <Col key={index} span={8}>
+                      <Checkbox value={option.value}>{option.label}</Checkbox>
+                    </Col>)}
+
+                  </Row>
+                </Checkbox.Group>
+              );
+            }}
+          />
+          {errors?.amenities && <ErrorMessage />}
+        </Form.Item>
+        
         <Form.Item
           label="Ảnh đại diện"
           rules={[
